@@ -9,7 +9,7 @@ int n, m, w;
 
 void bellman_ford(int v) {
     bool cycle = false;
-    fill(dist, dist + n + 1, INF);
+    memset(dist, 0x3f, sizeof(dist));
     dist[v] = 0;
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= n; ++j) {

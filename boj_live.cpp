@@ -1,66 +1,56 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+int p[1001][1001];
+bool check[1001][1001];
+int n, m;
+int movex[4] = {-1, 1, 0, 0};
+int movey[4] = {0, 0, -1, 1};
+int jump[1001][1001];
 
-#define INF 0x3f3f3f3f
+void bfs() {
+    queue<pair<int, int>> pos;
+    check[0][0] = true;
+    pos.push({0, 0});
+    while (!pos.empty()) {
+        int x = pos.front().first;
+        int y = pos.front().second;
+        pos.pop();
+        for (int i = 0; i < 4; ++i) {
+            x = x + movex[i];
+            y = y + movey[i];
+            if (x < 0 || y < 0 || x > m || y > n || check[x][y] == true) continue;
+            if (p[x][y] == 1){
+                if(jump[x][y] == 0 && p[x + movex[i]][y + movey[i]] == 0){
+                  jump[x][y] = 1;
 
-int ans;
-int n, m, r, a, b, l;
-int item[101];
-int d[101];
-vector<pair<int, int>> p[101];
 
-void dijkstra(int start) {
-    int cnt = 0;
-    queue<int> q;
-    for (int i = 1; i <= n; i++)
-        d[i] = INF;
-
-    d[start] = 0;
-    q.push(start);
-
-    while (!q.empty()) {
-        int node = q.front();
-        int dist = d[node];
-        q.pop();
-
-        for (int i = 0; i < p[node].size(); i++) {
-            int next_node = p[node][i].first;
-            int next_dist = p[node][i].second;
-
-            if (d[next_node] > dist + next_dist) {
-                d[next_node] = dist + next_dist;
-                q.push(next_node);
+                } else continue;
             }
 
+
+                check[x][y] = true;
+            pos.push({x, y});
+
         }
+
+
     }
-
-    for (int i = 1; i <= n; i++)
-        if (d[i] <= m) cnt += item[i];
-
-    ans = max(ans, cnt);
 }
 
+
 int main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-
-    cin >> n >> m >> r;
-
-
-    for (int i = 1; i <= n; i++) cin >> item[i];
-
-
-    for (int i = 0; i < r; i++) {
-        cin >> a >> b >> l;
-        p[a].push_back({b, l});
-        p[b].push_back({a, l});
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cin >> n >> m;
+    for (int i = 0; i < n; ++i) {
+        string inp;
+        cin >> inp;
+        for (int j = 0; j < m; ++j) {
+            p[j][i] = inp.at(j);
+        }
     }
+bfs();
 
-    for (int i = 1; i <= n; i++)
-        dijkstra(i);
-
-    cout << ans;
-
+    return 0;
 }
