@@ -16,30 +16,15 @@ public:
     }
 
     void setfraction(int n, int d = 1) {
-        if (n < 0 && d < 0) {
-            int di = gcd(-n, -d);
-            int tempn = -n / di;
-            int tempd = -d / di;
-            num = tempn;
-            den = tempd;
-        } else if (n < 0 && d > 0) {
-            int di = gcd(-n, d);
-            int tempn = -n / di;
-            int tempd = d / di;
-            num = -1 * tempn;
-            den = tempd;
-        } else if (n > 0 && d < 0) {
-            int di = gcd(n, -d);
-            int tempn = n / di;
-            int tempd = -d / di;
-            num = -1 * tempn;
-            den = tempd;
-        } else {
+
             int di = gcd(n, d);
             int tempn = n / di;
             int tempd = d / di;
             num = tempn;
             den = tempd;
+        if(den < 0){
+            num = -num;
+            den = -den;
         }
 
     }

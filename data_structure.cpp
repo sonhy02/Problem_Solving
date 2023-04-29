@@ -2,49 +2,58 @@
 
 using namespace std;
 
-struct node {
-    int element;
-    struct node* next;
+class node {
 
-    friend class singlylinkedlist;
+public:
+    node(int elem, node *next = NULL) {
+        this->elem = elem;
+        this->next = next;
+    }
+
+    int elem;
+    node *next;
 };
 
 class singlylinkedlist {
 
 public:
     singlylinkedlist() {
-node front;
-front.element = NULL;
 
 
     }
 
-    void insert_node(int elem, int idx) {
-        node Node;
-        Node.element = elem;
-        Node.next
+    void push(int ele, int idx) {
+        if (idx >= sz) {cout << "Impossible\n"; return;}
+        sz++;
+        node* finder;
+        finder = head->next;
+        for (int i = 1; i <=idx ; ++i) {
+            finder = finder->next;
+        }
 
     }
 
-    void delete_node(int idx) {
-
+    void pop(int idx) {
+        if (idx >= sz || sz < 1) {cout << "Impossible\n"; return;}
 
     }
 
-    bool empty();
+    bool empty() {
+        if (sz == 0) return true;
+        else return false;
+    }
 
 
 private:
-    node *head = NULL;
+    int sz;
+    node *head;
     node *tail;
-
 };
 
 
 int main() {
-
     singlylinkedlist t1;
-    t1.insert_node(2, 3);
+t1.empty();
 
     return 0;
 }
