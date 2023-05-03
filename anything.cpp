@@ -1,18 +1,22 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-int gcd(int a, int b) {
-    return (a % b == 0) ? b : gcd(b, a % b);
-}
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-int main()
-{
-    int v1 = 20;
-    int v2 = 12;
-    cout << "Please input two nums: ";
-    cin >> v1 >> v2;
-    cout << "GCD of " << v1 << " and " << v2 << " is: ";
-    gcd(v1, v2);
-    return 0;
+    int n, temp;
+    vector<int> a;
+    cin >> n;
+    for (int i = 0; i < n; ++i) {
+        cin >> temp;
+        a.push_back(temp);
+    }
+    sort(a.begin(), a.end());
+    cin >> n;
+    for (int i = 0; i < n; ++i) {
+        cin >> temp;
+        cout << binary_search(a.begin(), a.end(), temp) << '\n';
+    }
 }
