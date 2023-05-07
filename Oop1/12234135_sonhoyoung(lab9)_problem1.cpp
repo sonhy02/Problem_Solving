@@ -42,7 +42,8 @@ int main() {
         int max = 0;
         int min = 0x3f3f3f3f;
         for (int i = 1; i < 30; ++i) {
-            int d = abs(rnd[i - 1] - rnd[i]);
+            int d = rnd[i - 1] - rnd[i];
+            if (d < 0) d = -d;
             if (max < d) {
                 max = d;
                 ma1 = rnd[i - 1];
