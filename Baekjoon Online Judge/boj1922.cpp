@@ -1,10 +1,16 @@
 #include <bits/stdc++.h>
 
+const int INF = 0x3f3f3f3f;
+using ll = long long;
 using namespace std;
-
-
-vector<pair<int, pair<int, int>>> v;
-int parent[10001];
+int parent[1001];
+ll result;
+struct node_mst {
+    int cost;
+    int from;
+    int to;
+};
+vector<node_mst> v;
 
 int find(int x) {
     if (x == parent[x]) return x;
@@ -24,30 +30,33 @@ bool sameparent(int x, int y) {
     else return false;
 }
 
+bool comp(node_mst n1, node_mst n2) {
+    return n1.cost < n2.cost;
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
+
     int n, m;
-    int result = 0;
     cin >> n >> m;
-    for (int i = 1; i <= n; i++)
-        parent[i] = i;
     for (int i = 0; i < m; ++i) {
         int a, b, c;
         cin >> a >> b >> c;
-        v.push_back({c, {a, b}});
+        v.push_back({c, a, b});
     }
-    sort(v.begin(), v.end());
+    for (int i = 0; i <= n; ++i) {
+        parent[i] = i;
+    }
+    sort(v.begin(), v.end(), comp);
 
-    for (int i = 0; i < v.size(); i++) {
-        if (!sameparent(v[i].second.first, v[i].second.second)) {
-            merge(v[i].second.first, v[i].second.second);
-            result += v[i].first;
+    for (int i = 0; i < v.size(); ++i) {
+        if (!sameparent(v[i].from, v[i].to)) {
+            merge(v[i].from, v[i].to);
+            result += v[i].cost;
         }
     }
-    cout << result;
-
+    cout << result << "\n";
 
     return 0;
 }
-

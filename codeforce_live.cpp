@@ -1,44 +1,35 @@
 #include <bits/stdc++.h>
 
+const int INF = 0x3f3f3f3f;
+using ll = long long;
 using namespace std;
-bool check[101];
-vector<vector<string>>a;
-vector<string>y;
+int p[100001];
+int m = 0;
+int mi = 0x3f3f3f3f;
+int r;
+int l;
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    a.push_back(y);
     int t;
+
     cin >> t;
-    memset(check, 1, size(check));
     while (t--) {
-        int n, k;
-        cin >> n >> k;
-        for (int i = 1; i <= n; ++i) {
-            string p;
-            cin >> p;
 
-            for (int j = 0; j < k; ++j) {
-               a[i][j].push_back(p.at(j));
-            }
-        }
-        for (int i = 0; i < k; ++i) {
-            for (int j = 0; j < n; ++j) {
-                cout << a[j][k];
-                if (check[j] == 0) continue;
-                if (a[0][k] != a[j][k] && check[j] == true) check[j] = false;
-            }
-            cout << "\n";
-        }
-        int cnt = 0;
-        for (int i = 0; i < n; ++i) {
-            if (check[i]) cnt++;
+        int a, b;
+        cin >> a >> b;
+        for (int i = 0; i < a; ++i) {
+            cin >> p[i];
+            if(p[i] == -1) l++;
+            else if(p[i] == -2) r++;
+            if (m < p[i]) m = p[i];
+            if (p[i] > 0 && mi > p[i]) mi = p[i];
         }
 
-        cout << cnt << "\n";
+
+
 
     }
-
     return 0;
 }
