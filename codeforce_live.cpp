@@ -11,12 +11,20 @@ int main() {
     int t;
 
     cin >> t;
-
-
     while (t--) {
-
-
-
+        int r = 0, l = 0;
+        int n, m;
+        int temp3 = 0;
+        cin >> n >> m;
+        vi v(m);
+        for (int i = 0; i < n; ++i) {
+            int a;
+            cin >> a;
+            if (a == -1) l++;
+            else if (a == -2) r++;
+            else v.push_back(a);
+        }
+        sort(v.begin(), v.end());
 
 
 
