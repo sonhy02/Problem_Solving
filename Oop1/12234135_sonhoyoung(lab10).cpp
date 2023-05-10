@@ -75,22 +75,10 @@ int main() {
     }
 
     for (int i = 0; i < b.size(); ++i) {
-        int t = 0;
-        int dd = b[i];
-        for (int i = 0; i < un.size(); ++i) {
-
-            if (un.at(i) == dd) {
-
-                break;
-            }
-            t++;
-        }
-        if (t == un.size()) un.push_back(dd);
-
+        if(!binary_search(a.begin(),a.end(),b[i]))
+            un.push_back(b[i]);
 
     }
-
-
     if (!un.empty()) sort(un.begin(), un.end());
     if (!ins.empty()) sort(ins.begin(), ins.end());
 
@@ -99,21 +87,16 @@ int main() {
     cout << "A intersection B: { ";
     printVector2(ins);
 
-
     return 0;
 }
 
-
 void printVector1(const vi &v, string s) {
-
     for (auto const re: v) {
         cout << "Duplicate number in " << s << ": " << re << "\n";
     }
-
 }
 
 void printVector2(const vi &v) {
-
     for (auto const re: v) {
         cout << re << " ";
     }

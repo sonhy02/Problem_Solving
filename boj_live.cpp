@@ -30,13 +30,13 @@ int main() {
         check[i][i] = true;
         if (s[i] == s[i + 1]) check[i][i + 1] = true;
     }
-    for (int i = s.size()/2 + 1; i >=0; --i) {
-        for (int j = 0; j < s.size(); ++j) {
-
-            if (check[i][j] && (s[i - 1] == s[j + 1])) check[i - 1][j + 1] = true;
-
-        }
+    for (int i = 1; i < s.size() - 1; ++i) {
+        if (check[i][i] && (s[i - 1] == s[i + 1])) check[i - 1][i + 1] = true;
     }
+
+
+
+
     pali(0);
     cout << cnt << "\n";
     return 0;
