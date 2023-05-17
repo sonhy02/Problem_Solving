@@ -6,17 +6,22 @@ using pii = pair<int, int>;
 using ll = long long;
 using vi = vector<int>;
 
+
+void swap(string *a, string *b) {
+    string temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int a;
-    vi lis;
-    cin >> a;
-    vi v(a);
-    for (int i = 0; i < a; ++i) {
-        cin >> v[i];
-    }
-
+ string a, b;
+ cin >> a >> b;
+ cout << a << b;
+ cout << "\n";
+    swap(&a , &b);
+    cout << a << b;
 
     return 0;
 }
