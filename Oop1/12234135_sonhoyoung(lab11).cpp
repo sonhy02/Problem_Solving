@@ -77,6 +77,5 @@ int main() {
     cout << "\n";
     selection_sort(a, 10, t);
 
-
     return 0;
 }

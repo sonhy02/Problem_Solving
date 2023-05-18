@@ -184,19 +184,17 @@ int main() {
             if (dp[j + 1][i + j - 1] && s[j] == s[i + j]) dp[j][i + j] = true;
         }
     }
-    int b = 0, e= s.size()-1, cnt = 0;
 
-    while (b != s.size()){
-        if(dp[])
+    int b = 0, e = s.size() - 1, cnt = 0;
 
-
-
-
+    while (b < s.size()) {
+        if (dp[b][e]) {
+            cnt++;
+            b = e + 1;
+            e = s.size()-1;
+        }
+        e--;
     }
-
-
-
-
 
 
     cout << cnt << "\n";
