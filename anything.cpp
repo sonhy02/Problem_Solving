@@ -165,38 +165,131 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-bool dp[2501][2501];
-vector<int> num(2001);
+
+class stu {
+    int stuno = 0;
+    string stuname;
+    int test1 = 0;
+    int test2 = 0;
+public:
+    void setstuno(int k);
+
+    void setstuname(string s);
+
+    void settest1(int k);
+
+    void settest2(int k);
+
+    int getstuno();
+
+    int gettest1();
+
+    int gettest2();
+
+    string getstuname();
+
+    void f(stu s[]);
+};
+
+void stu::f(stu s[]) {
+    int l;
+    cin >> l;
+    for (int t = 0; t < 10; ++t) {
+        if ((s[t].gettest1() + s[t].gettest2()) / 2)
+            cout << s[t].getstuname();
+    }
+}
+
+void stu::setstuno(int k) {
+    stuno = k;
+}
+
+void stu::settest1(int k) {
+    test1 = k;
+}
+
+void stu::settest2(int k) {
+    test2 = k;
+}
+
+void stu::setstuname(string s) {
+    stuname = s;
+}
+
+int stu::getstuno() {
+    return stuno;
+}
+
+string stu::getstuname() {
+    return stuname;
+}
+
+int stu::gettest1() {
+    return test1;
+}
+
+int stu::gettest2() {
+    return test2;
+}
+
+void pr(stu s[], int t) {
+    for (int t1 = 0; t1 < t; ++t1) {
+        cout << s[t1].getstuname() << " ";
+    }
+    cout << "\n";
+}
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    string s;
-    cin >> s;
-    for (int i = 0; i < s.size(); ++i) {
-        dp[i][i] = true;
-        if (i != 0 && s[i - 1] == s[i]) dp[i - 1][i] = true;
-    }
 
-    for (int i = 2; i < s.size() - 1; ++i) {
-        for (int j = 0; i + j < s.size(); ++j) {
-            if (dp[j + 1][i + j - 1] && s[j] == s[i + j]) dp[j][i + j] = true;
+    stu v[10];
+    int s = 0;
+    int cnt = 0;
+    while (cout << "select 1 2 3 (-1 for stop) \n" && cin >> s) {
+        if (s == -1)break;
+        switch (s) {
+            case 1:
+                pr(v, cnt);
+                break;
+            case 2:
+                int sen;
+                for (int t = cnt; t < 10; ++t) {
+                    int t1 = 0;
+                    int t2 = 0;
+                    int t3 = 0;
+                    string ssss;
+
+                    cin >> t1;
+                    cin >> ssss;
+                    cin >> t2;
+                    cin >> t3;
+
+                    v[t].setstuno(t1);
+                    v[t].setstuname(ssss);
+                    v[t].settest1(t2);
+                    v[t].settest2(t3);
+
+                    cnt++;
+                    cout << "continue?(if not input -1)\n";
+                    cin >> sen;
+                    if (sen == -1)
+                        break;
+                }
+                break;
+            case 3:
+                int v1;
+                cin >> v1;
+                for (int t = 0; t < cnt; ++t) {
+                    if (v1 == v[t].getstuno())
+                        cout << v[t].getstuname();
+                }
+                cout << "\n";
+                break;
+
         }
     }
-
-    int b = 0, e = s.size() - 1, cnt = 0;
-
-    while (b < s.size()) {
-        if (dp[b][e]) {
-            cnt++;
-            b = e + 1;
-            e = s.size()-1;
-        }
-        e--;
-    }
-
-
-    cout << cnt << "\n";
-    return 0;
 }
+
+
+
+
+
