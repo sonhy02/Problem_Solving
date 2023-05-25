@@ -162,134 +162,123 @@
 //        }
 //    }
 //}
-#include <bits/stdc++.h>
+#include <iostream>
+#include <cstdlib>
+#include <string>
+#include <iomanip>
 
 using namespace std;
 
-class stu {
-    int stuno = 0;
-    string stuname;
-    int test1 = 0;
-    int test2 = 0;
+class Candidate {
 public:
-    void setstuno(int k);
+    static const int maxLength{11};
 
-    void setstuname(string s);
+    Candidate(unsigned candID = 0, const string &candName = "", unsigned v = 0);
 
-    void settest1(int k);
+    void setID(unsigned candID);
 
-    void settest2(int k);
+    unsigned getID() const;
 
-    int getstuno();
+    void setName(const string &candName);
 
-    int gettest1();
+    string getName() const;
 
-    int gettest2();
+    void setVotes(unsigned v);
 
-    string getstuname();
+    unsigned getVotes() const;
 
-    void f(stu s[]);
+    void increaseVotes();
+
+private:
+    unsigned ID;
+    char name[maxLength];
+    unsigned votes;
 };
 
-void stu::f(stu s[]) {
-    int l;
-    cin >> l;
-    for (int t = 0; t < 10; ++t) {
-        if ((s[t].gettest1() + s[t].gettest2()) / 2)
-            cout << s[t].getstuname();
-    }
-}
-
-void stu::setstuno(int k) {
-    stuno = k;
-}
-
-void stu::settest1(int k) {
-    test1 = k;
-}
-
-void stu::settest2(int k) {
-    test2 = k;
-}
-
-void stu::setstuname(string s) {
-    stuname = s;
-}
-
-int stu::getstuno() {
-    return stuno;
-}
-
-string stu::getstuname() {
-    return stuname;
-}
-
-int stu::gettest1() {
-    return test1;
-}
-
-int stu::gettest2() {
-    return test2;
-}
-
-void pr(stu s[], int t) {
-    for (int t1 = 0; t1 < t; ++t1) {
-        cout << s[t1].getstuname() << " ";
-    }
-    cout << "\n";
-}
-
 int main() {
+    cout << "Enter the number of candidates and polls: ";
+    int n{0};
+    int votenum{0};
+    cin >> n >> votenum;
+    Candidate cand[10];
+    Candidate *candPtr{cand};
+    cin.ignore(100, '\n');
+    for (int i{0}; i < n; i++) {
+        string name;
+        cout << "Enter the name of candidate #" << i + 1 << ": ";
+        getline(cin, name);
+        (*(candPtr + i)).setName(name);
+        (*(candPtr + i)).setID(i + 1);
+        (*(candPtr + i)).setVotes(0);
+    }
+    srand(votenum);
+    for (int i{0}; i < votenum; i++) {
+        int vote = rand() % n;
+        (*(candPtr + vote)).increaseVotes();
+    }
+    cout << "\nResults of " << votenum << " exit polls\n";
+    for (int i = 0; i < n; i++) {
+        cout << "Candidate #" << i + 1 << ": ";
+        int value = (*(candPtr + i)).getVotes() + 50;
+        value = value / 100;
+        for (int j = 0; j < value; j++) {
+            cout << "*";
+        }
+        cout << fixed << setprecision(2) << " (" << (*(candPtr + i)).getVotes() << " votes, "
+             << ((double) (*(candPtr + i)).getVotes() / votenum) * 100 << "%)\n";
+    }
+    int index{0};
+    unsigned int max = 0;
+    for (int i = 0; i < n; i++) {
+        if ((*(candPtr + i)).getVotes() > max) {
+            max = (*(candPtr + i)).getVotes();
+            index = i;
+        }
+    }
+    cout << "\nCandidate #" << (*(candPtr + index)).getID() << " " << (*(candPtr + index)).getName()
+         << " is likely to win.";
+}
 
-    stu v[10];
-    int s = 0;
-    int cnt = 0;
-    while (cout << "select 1 2 3 (-1 for stop) \n" && cin >> s) {
-        if (s == -1)break;
-        switch (s) {
-            case 1:
-                pr(v, cnt);
-                break;
-            case 2:
-                int sen;
-                for (int t = cnt; t < 10; ++t) {
-                    int t1 = 0;
-                    int t2 = 0;
-                    int t3 = 0;
-                    string ssss;
+Candidate::Candidate(unsigned candID, const string &candName, unsigned v) {
+    ID = candID;
+    for (int i = 0; i < 11; i++) {
+        *(name + i) = '\0';
+    }
+    votes = v;
+}
 
-                    cin >> t1;
-                    cin >> ssss;
-                    cin >> t2;
-                    cin >> t3;
+void Candidate::setID(unsigned candID) {
+    ID = candID;
+}
 
-                    v[t].setstuno(t1);
-                    v[t].setstuname(ssss);
-                    v[t].settest1(t2);
-                    v[t].settest2(t3);
+unsigned Candidate::getID() const {
+    return ID;
+}
 
-                    cnt++;
-                    cout << "continue?(if not input -1)\n";
-                    cin >> sen;
-                    if (sen == -1)
-                        break;
-                }
-                break;
-            case 3:
-                int v1;
-                cin >> v1;
-                for (int t = 0; t < cnt; ++t) {
-                    if (v1 == v[t].getstuno())
-                        cout << v[t].getstuname();
-                }
-                cout << "\n";
-                break;
-
+void Candidate::setName(const string &candName) {
+    if (candName.length() < 10) {
+        for (int i = 0; i < candName.length(); i++) {
+            *(name + i) = candName[i];
+        }
+    } else {
+        for (int i = 0; i < 10; i++) {
+            *(name + i) = candName[i];
         }
     }
 }
 
+string Candidate::getName() const {
+    return name;
+}
 
+void Candidate::setVotes(unsigned v) {
+    votes = v;
+}
 
+unsigned Candidate::getVotes() const {
+    return votes;
+}
 
-
+void Candidate::increaseVotes() {
+    votes++;
+}
