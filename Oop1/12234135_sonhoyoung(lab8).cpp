@@ -17,12 +17,12 @@ public:
 
     void setfraction(int n, int d = 1) {
 
-            int di = gcd(n, d);
-            int tempn = n / di;
-            int tempd = d / di;
-            num = tempn;
-            den = tempd;
-        if(den < 0){
+        int di = gcd(n, d);
+        int tempn = n / di;
+        int tempd = d / di;
+        num = tempn;
+        den = tempd;
+        if (den < 0) {
             num = -num;
             den = -den;
         }
@@ -50,11 +50,11 @@ fraction add(fraction x, fraction y) {
     int di = gcd(num, den);
     num /= di;
     den /= di;
-    if(den < 0){
+    if (den < 0) {
         den = -den;
         num = -num;
     }
-    fraction r (num , den);
+    fraction r(num, den);
     num = r.getNum();
     den = r.getDen();
     cout << "(" << x.getNum() << "/" << x.getDen() << ")" << " + " << "(" << y.getNum() << "/" << y.getDen() << ")"
@@ -68,11 +68,11 @@ fraction subtract(fraction x, fraction y) {
     int di = gcd(num, den);
     num /= di;
     den /= di;
-    if(den < 0){
+    if (den < 0) {
         den = -den;
         num = -num;
     }
-    fraction r (num , den);
+    fraction r(num, den);
     num = r.getNum();
     den = r.getDen();
     cout << "(" << x.getNum() << "/" << x.getDen() << ")" << " - " << "(" << y.getNum() << "/" << y.getDen() << ")"
@@ -81,13 +81,13 @@ fraction subtract(fraction x, fraction y) {
 }
 
 fraction multiply(fraction x, fraction y) {
-int num = x.getNum() * y.getNum();
-int den =x.getDen() * y.getDen();
-    if(den < 0){
+    int num = x.getNum() * y.getNum();
+    int den = x.getDen() * y.getDen();
+    if (den < 0) {
         den = -den;
         num = -num;
     }
-    fraction r (num , den);
+    fraction r(num, den);
     num = r.getNum();
     den = r.getDen();
     cout << "(" << x.getNum() << "/" << x.getDen() << ")" << " * " << "(" << y.getNum() << "/" << y.getDen() << ")"
@@ -98,17 +98,17 @@ int den =x.getDen() * y.getDen();
 fraction divide(fraction x, fraction y) {
     int numy = y.getDen();
     int deny = y.getNum();
-    if(deny < 0){
+    if (deny < 0) {
         deny = -deny;
         numy = -numy;
     }
     int num = x.getNum() * numy;
-    int den =x.getDen() * deny;
-    if(den < 0){
+    int den = x.getDen() * deny;
+    if (den < 0) {
         den = -den;
         num = -num;
     }
-    fraction r (num , den);
+    fraction r(num, den);
     num = r.getNum();
     den = r.getDen();
     cout << "(" << x.getNum() << "/" << x.getDen() << ")" << " / " << "(" << y.getNum() << "/" << y.getDen() << ")"
@@ -127,10 +127,10 @@ int main() {
     cin >> a >> b;
     fraction f2(a, b);
     cout << "Second fraction: " << f2.getNum() << "/" << f2.getDen() << "\n";
-    add(f1,f2);
-    subtract(f1,f2);
-    multiply(f1,f2);
-    divide(f1,f2);
+    add(f1, f2);
+    subtract(f1, f2);
+    multiply(f1, f2);
+    divide(f1, f2);
 
     return 0;
 }

@@ -162,123 +162,87 @@
 //        }
 //    }
 //}
-#include <iostream>
-#include <cstdlib>
-#include <string>
-#include <iomanip>
+//#include <iostream>
+//#include <iomanip>
+//
+//using namespace std;
+//
+//void swap(int *const p1, int *const p2);
+//
+//void selectionSort(int A[], const int size, int order);
+//
+//int main() {
+//    int a[10], c;
+//    for (void (*i){new int{0}}, (*p)(int[], const int, int){selectionSort};
+//         *(int *) i < 30; ((*(int *) i) == 0 ? cout << "Enter 10 integers in [-99, 99] to sort: " : cout
+//            << ""), (((*(int *) i) < 10) ? cin >> a[*(int *) i] : cin), ((*(int *) i) == 9 ? cout
+//            << "Choose sorting order (1: ascending order, 2: descending order): " : cout << ""), ((*(int *) i) == 9 ?
+//                                                                                                  cin >> c
+//                                                                                                                    : cin), (*(int *) i) += 1, (
+//            (*(int *) i) != 20 ? (*p)(a, 1, 1) : (*p)(a, 10, c)))
+//        (*(int *) i) < 10 ? cout : cout << ((*(int *) i) != 10 ? "" : "Initial array:")
+//                                        << ((*(int *) i) != 20 ? "" : c == 1 ? "Sorted in ascending order:"
+//                                                                             : "Sorted in descending order:") << setw(4)
+//                                        << a[(*(int *) i) % 10] << (((*(int *) i) % 10) != 9 ? "" : "\n");
+//
+//    return 0;
+//}
+//
+//void selectionSort(int A[], const int size, int order) {
+//    for (int i{size - 1}, m{0}, j{0}; m = A[m] > A[size - i + j] ^ (order >> 1) ? size - i + j : m, i > 0; i -= ++j /
+//                                                                                                                i, j %= i +
+//                                                                                                                        1)
+//        if (j + 1 == i)
+//            for (void (*k){new int{0}}, (*s)(int *, int *){swap};
+//                 *(int *) k == 0 ? (*s)(&A[(m = size - i) - 1], &A[m]) : (*s)(&A[m], &A[m]), *(int *) k <
+//                                                                                             10; (*(int *) k)++)
+//                *(int *) k != 0 ? (cout << setw(4) << A[*(int *) k] << (*(int *) k != 9 ? "" : "\n")) : (cout
+//                        << "after " << size - i - 1 << "-th iteration:" << setw(4) << A[*(int *) k]
+//                        << (*(int *) k != 9 ? "" : "\n"));
+//}
+//
+//void swap(int *const p1, int *const p2) {
+//    int t{*p1}, c{(*p2 = t ^ (*p1 = *p2) ^ (*p1))};
+//}
+
+
+#include <bits/stdc++.h>
 
 using namespace std;
-
-class Candidate {
-public:
-    static const int maxLength{11};
-
-    Candidate(unsigned candID = 0, const string &candName = "", unsigned v = 0);
-
-    void setID(unsigned candID);
-
-    unsigned getID() const;
-
-    void setName(const string &candName);
-
-    string getName() const;
-
-    void setVotes(unsigned v);
-
-    unsigned getVotes() const;
-
-    void increaseVotes();
-
-private:
-    unsigned ID;
-    char name[maxLength];
-    unsigned votes;
-};
+const int INF = 0x3f3f3f3f;
+using ll = long long;
+using pii = pair<int, int>;
+using pli = pair<ll, int>;
+using pll = pair<ll, ll>;
+using vi = vector<int>;
+using vll = vector<ll>;
+using vpii = vector<pii>;
 
 int main() {
-    cout << "Enter the number of candidates and polls: ";
-    int n{0};
-    int votenum{0};
-    cin >> n >> votenum;
-    Candidate cand[10];
-    Candidate *candPtr{cand};
-    cin.ignore(100, '\n');
-    for (int i{0}; i < n; i++) {
-        string name;
-        cout << "Enter the name of candidate #" << i + 1 << ": ";
-        getline(cin, name);
-        (*(candPtr + i)).setName(name);
-        (*(candPtr + i)).setID(i + 1);
-        (*(candPtr + i)).setVotes(0);
-    }
-    srand(votenum);
-    for (int i{0}; i < votenum; i++) {
-        int vote = rand() % n;
-        (*(candPtr + vote)).increaseVotes();
-    }
-    cout << "\nResults of " << votenum << " exit polls\n";
-    for (int i = 0; i < n; i++) {
-        cout << "Candidate #" << i + 1 << ": ";
-        int value = (*(candPtr + i)).getVotes() + 50;
-        value = value / 100;
-        for (int j = 0; j < value; j++) {
-            cout << "*";
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    int t;
+    cin >> t;
+    while (t--) {
+        int a;
+        cin >> a;
+        vi v(2 * a);
+        set<int> s;
+        vi check(400001);
+        for (int i = 0; i < 2 * a; ++i) {
+            cin >> v[i];
+            s.insert(v[i]);
         }
-        cout << fixed << setprecision(2) << " (" << (*(candPtr + i)).getVotes() << " votes, "
-             << ((double) (*(candPtr + i)).getVotes() / votenum) * 100 << "%)\n";
-    }
-    int index{0};
-    unsigned int max = 0;
-    for (int i = 0; i < n; i++) {
-        if ((*(candPtr + i)).getVotes() > max) {
-            max = (*(candPtr + i)).getVotes();
-            index = i;
+        int max = 0;
+        for (int i: s) {
+            int c = count(v.begin(), v.end(), i);
+            if (max < c) max = c;
         }
+
+        cout << max << "\n";
+
     }
-    cout << "\nCandidate #" << (*(candPtr + index)).getID() << " " << (*(candPtr + index)).getName()
-         << " is likely to win.";
+    return 0;
 }
 
-Candidate::Candidate(unsigned candID, const string &candName, unsigned v) {
-    ID = candID;
-    for (int i = 0; i < 11; i++) {
-        *(name + i) = '\0';
-    }
-    votes = v;
-}
-
-void Candidate::setID(unsigned candID) {
-    ID = candID;
-}
-
-unsigned Candidate::getID() const {
-    return ID;
-}
-
-void Candidate::setName(const string &candName) {
-    if (candName.length() < 10) {
-        for (int i = 0; i < candName.length(); i++) {
-            *(name + i) = candName[i];
-        }
-    } else {
-        for (int i = 0; i < 10; i++) {
-            *(name + i) = candName[i];
-        }
-    }
-}
-
-string Candidate::getName() const {
-    return name;
-}
-
-void Candidate::setVotes(unsigned v) {
-    votes = v;
-}
-
-unsigned Candidate::getVotes() const {
-    return votes;
-}
-
-void Candidate::increaseVotes() {
-    votes++;
-}
