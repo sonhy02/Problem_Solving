@@ -22,9 +22,8 @@ void merge(int x, int y, int w) {
     int px = find(x);
     int py = find(y);
     if (px == py) return;
-
-
-    parent[y] = x;
+    dist[y] = dist[x] - dist[y] + w;
+    parent[py] = px;
 }
 
 
@@ -34,23 +33,32 @@ int main() {
     cout.tie(NULL);
     int a, b;
     while (1) {
+        for (int i = 0; i < 100001; ++i) {
+            parent[i] = i;
+        }
+        memset(dist, 0, sizeof(dist));
         cin >> a >> b;
         if (a == 0 && b == 0) break;
         for (int i = 0; i < b; ++i) {
             string s;
+            cin >> s;
             if (s == "!") {
                 int n, m, d;
                 cin >> n >> m >> d;
-
+                merge(n, m, d);
 
             } else {
                 int n, m;
                 cin >> n >> m;
-                if (parent[n] != parent[m]) cout << "UNKNOWN\n";
-                else {
-
+                int check = 0;
+                if (m > n) {
+                    swap(n, m);
+                    check = 1;
                 }
-
+                if (find(n) != find(m)) cout << "UNKNOWN\n";
+                else if (check == 1) {
+                    cout << -(dist[m] - dist[n]) << "\n";
+                } else cout << (dist[m] - dist[n]) << "\n";
             }
 
 

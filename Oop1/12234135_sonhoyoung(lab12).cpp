@@ -70,7 +70,7 @@ int main() {
     for (int i = 0; i < a; ++i) {
         cout << "Enter the name of candidate #" << i + 1 << ": ";
         getline(cin, s);
-        (*(ptr + i)).setName(s);
+        (ptr + i)->setName(s);
         (*(ptr + i)).setID(i + 1);
         (*(ptr + i)).setVotes(0);
     }

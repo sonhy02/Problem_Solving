@@ -218,31 +218,134 @@ using vi = vector<int>;
 using vll = vector<ll>;
 using vpii = vector<pii>;
 
+
+class node {
+    int x;
+    int y;
+    double dis;
+public:
+    node(int x, int y, double dis) {
+        this->x = x;
+        this->y = y;
+        this->dis = dis;
+    }
+
+    double getd() {
+        return dis;
+    }
+
+    int getx() {
+        return x;
+    }
+
+    int gety() {
+        return y;
+    }
+};
+
+bool compare(node x, node y) {
+    double dx = x.getd();
+    double dy = y.getd();
+    return x.getd() < y.getd();
+}
+
+string integer_to_Roman(int n) {
+
+    string romans[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+    int values[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+
+    string result = "";
+
+    for (int i = 0; i < 13; ++i) {
+        while (n - values[i] >= 0) {
+            result += romans[i];
+            n -= values[i];
+        }
+    }
+
+    return result;
+}
+
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int t;
-    cin >> t;
-    while (t--) {
-        int a;
-        cin >> a;
-        vi v(2 * a);
-        set<int> s;
-        vi check(400001);
-        for (int i = 0; i < 2 * a; ++i) {
-            cin >> v[i];
-            s.insert(v[i]);
-        }
-        int max = 0;
-        for (int i: s) {
-            int c = count(v.begin(), v.end(), i);
-            if (max < c) max = c;
-        }
 
-        cout << max << "\n";
 
+
+//   string s,q;       ///problem1
+//   cin >> s;
+//   int a[s.size()];
+//    for (int i = 0; i < s.size(); ++i) {
+//        a[i] = s[i];
+//    }
+//    sort(a,a+s.size());
+//    q.push_back(a[0]);
+//    for (int i = 0; i < s.size(); ++i) {
+//        s[i] = a[i];
+//        if(i != 0 && a[i-1] != a[i]) q.push_back(a[i]);
+//    }
+//    cout << s << "\n" << q;     ///problem1
+
+    vector<node> p;    // problem 2
+    int a, b;
+    int i = 0;
+    while (cout << "Enter x and y coordinates of the " << i << "-th point (EOF to end): " && cin >> a >> b) {
+        p.push_back(node(a, b, sqrt(a * a + b * b)));
+        i++;
     }
-    return 0;
+    sort(p.begin(), p.end(), compare);
+    cout << "\n";
+    cout << p[0].getx() << " " << p[0].gety() << "\n";
+    cout << fixed << setprecision(2) << p[0].getd() << "\n";
+    cout << p[p.size() - 1].getx() << " " << p[p.size() - 1].gety() << "\n";
+    cout << fixed << setprecision(2) << p[p.size() - 1].getd() << "\n";    // problem 2
+
+//    int a; //p3
+//    while (cout << "Enter n in [1, 3999}: " && cin >> a){
+//        cout << integer_to_Roman(a) << "\n";
+//    } //p3
+
+        return 0;
 }
 
+
+//
+//#include <bits/stdc++.h>
+//using namespace std;
+//using ll = long long;
+//
+//struct segtree {
+//    ll n;
+//    vector<ll> tree;
+//    segtree(ll n) : n(n) { tree.resize(n*4); }
+//
+//    void update(ll t, ll x, ll i, ll l, ll r) {
+//        if (l == r) {
+//            tree[i] = x;
+//            return;
+//        }
+//
+//        ll m = l+r>>1;
+//        if (t <= m) update(t, x, i<<1, l, m);
+//        else update(t, x, i<<1|1, m+1, r);
+//        tree[i] = tree[i<<1] + tree[i<<1|1];
+//    }
+//
+//    void update(ll t, ll x) {
+//        update(t, x, 1, 1, n);
+//    }
+//
+//    ll query(ll b, ll e, ll i, ll l, ll r) {
+//        if (b > r || e < l) return 0;
+//        if (b <= l && r <= e) return tree[i];
+//
+//        ll m = l+r>>1;
+//        return query(b, e, i<<1, l, m) + query(b, e, i<<1|1, m+1, r);
+//    }
+//
+//    ll query(ll b, ll e) {
+//        return query(b, e, 1, 1, n);
+//    }
+//};

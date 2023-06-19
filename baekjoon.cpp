@@ -8,22 +8,18 @@ using pli = pair<ll, int>;
 using pll = pair<ll, ll>;
 using vi = vector<int>;
 using vll = vector<ll>;
-using vpii = vector<pii>;
-
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
+    int p[3][1001];
     int t;
     cin >> t;
-    while (t--) {
-        int n;
-        cin >> n;
-
-
+    for (int i = 0; i < t; ++i) {
+        cin >> p[0][i] >> p[1][i] >> p[2][i];
     }
 
+    for (int i = 0; i < ; ++i) {
+        
+    }
 
     return 0;
 }
