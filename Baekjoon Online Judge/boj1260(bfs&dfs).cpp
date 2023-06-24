@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+using namespace std;
 
 vector<int> p[1001];
 vector<bool> check(1001);

@@ -9,25 +9,31 @@ using pll = pair<ll, ll>;
 using vi = vector<int>;
 using vll = vector<ll>;
 using vpii = vector<pii>;
-priority_queue<pii> pq;
+
+int dis[100001];
+int max[100001];
+int min[100001];
+int color[100001][100001];
+vi v[200001];
+
+void bfs(){
+    int
+
+
+
+}
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int t;
-    cin >> t;
-    while (t--) {
-        int a;
-        cin >> a;
-        if (a == 0) {
-            if (pq.size() == 0) cout << 0 << "\n";
-            else {
-                cout << -pq.top().second << "\n";
-                pq.pop();
-            }
-        } else
-            pq.push({-abs(a), -a});
+    int n, m;
+    cin >> n >> m;
+    for (int i = 0; i < m; ++i) {
+        int a, b, c;
+        cin >> a >> b >> c;
+        v[a].push_back(b);
+        color[a][b] = c;
     }
 
     return 0;
