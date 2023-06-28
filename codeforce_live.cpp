@@ -48,13 +48,22 @@ int main() {
             int s = chain.size();
 
 
+
+
+
+
+
+
+
+
+
         } else {
             if (block[i].first == block[i + 1].first) {
                 cout << block[i].first << " BLOCK " << block[i].second << "\n";
                 int temp = block[i].second;
                 while (1) {
                     temp++;
-                    if (chain.find(temp) != chain.end()) {
+                    if (chain.find(temp) != chain.end() || temp > 2 * n) {
                         chain.erase(temp);
                         break;
                     }
@@ -70,7 +79,7 @@ int main() {
                 int temp = block[i].second;
                 while (1) {
                     temp++;
-                    if (chain.find(temp) != chain.end()) {
+                    if (chain.find(temp) != chain.end() || temp > 2 * n) {
                         chain.erase(temp);
                         break;
                     }
@@ -81,7 +90,7 @@ int main() {
                 cout << prt << " CHAIN " << temp << "\n";
                 while (1) {
                     temp++;
-                    if (chain.find(temp) != chain.end()) {
+                    if (chain.find(temp) != chain.end() || temp > 2 * n) {
                         chain.erase(temp);
                         break;
                     }
