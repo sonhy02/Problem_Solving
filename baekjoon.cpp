@@ -10,93 +10,59 @@ using vi = vector<int>;
 using vll = vector<ll>;
 using vpii = vector<pii>;
 
-//bool comp(pair<int, pii> x, pair<int, pii> y) {
-//    if (x.first > y.first) return x.first > y.first;
-//    else if (x.first == y.first) {
-//        if (x.second.first < y.second.first) {
-//            return x.second.first < y.second.first;
-//        } else if (x.second.first == y.second.first) {
-//            if (x.second.second == 0) {
-//                return x.second.first < y.second.first;
-//            }
-//        }
-//    }
-//}
-bool comp(pair<int, pii> x, pair<int, pii> y) {
-    if (x.first == y.first) {
-        if (x.second.first == y.second.first) {
-            return x.second.second < y.second.second;
-        } else {
-            return x.second.first < y.second.first;
-        }
-    } else {
-        return x.first > y.first;
+vector<pii> p[16];
+bool check[16];
+
+struct sub {
+    int food;
+    int hobby;
+    int family;
+    int philosophy;
+};
+
+void dfs(int n) {
+    for (int i = 0; i < p[n].size(); ++i) {
+
+
+
+
     }
 }
+
+
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int t;
-    cin >> t;
-    while (t--) {
-        int n, m, h;
-        cin >> n >> m >> h;
-        vector<vi> v(n);
-        vector<vi> w(n);
-        vector<vi> s(n);
-        vector<pair<int, pii>> r;
-        for (int i = 0; i < n; ++i) {
-            for (int j = 1; j <= m; ++j) {
-                int a;
-                cin >> a;
-                v[i].push_back(a);
-            }
-            sort(v[i].begin(), v[i].end());
-        }
-        for (int i = 0; i < n; ++i) {
-            int temp = 0;
-            for (int j = 0; j < m; ++j) {
-                temp += v[i][j];
-                w[i].push_back(temp);
-            }
-        }
-        for (int i = 0; i < n; ++i) {
-            s[i].push_back(v[i][0]);
-            for (int j = 1; j < m; ++j) {
-                s[i].push_back(s[i][j-1] + w[i][j]);
-            }
-        }
-
-        if (n == 1) {
-            cout << 1 << "\n";
-            continue;
-        }
-        for (int i = 0; i < n; ++i) {
-            int temp = 0;
-            int cnt = 0;
-            for (int j = 0; j < m; ++j) {
-                temp += v[i][j];
-                if (temp <= h) cnt++;
-                else {
-                    break;
-                }
-            }
-            r.push_back({cnt, {s[i][cnt - 1], i}});
-
-        }
-
-        sort(r.begin(), r.end(), comp);
-//        for (int i = 0; i < r.size(); ++i) {
-//            cout << r[i].first << " " << r[i].second.first << " " << r[i].second.second << " \n";
-//        }
-        for (int i = 0; i < r.size(); ++i) {
-            if (r[i].second.second == 0) {
-                cout << i + 1 << "\n";
-            }
-        }
-
+#ifndef ONLINE_JUDGE
+    freopen("../input.txt", "r", stdin);
+    freopen("../output.txt", "w", stdout);
+#endif
+    int n, m;
+    cin >> n >> m;
+    sub f[n];
+    vector<int> v[n];
+    for (int i = 0; i < n; ++i) {
+        cin >> f[i].family >> f[i].food >> f[i].hobby >> f[i].philosophy;
     }
+    for (int i = 1; i <= n; ++i) {
+        int a, b;
+        cin >> a >> b;
+        v[a].push_back(i);
+        if (a != b)
+            v[b].push_back(i);
+    }
+    for (int i = 0; i < m; ++i) {
+        int a, b, c;
+        cin >> a >> b >> c;
+        p[a].push_back({b, c});
+        p[b].push_back({a, c});
+    }
+    for (int i = 0; i < p[1].size(); ++i) {
+        dfs(i);
+    }
+
+
     return 0;
 }

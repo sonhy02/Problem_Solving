@@ -1,110 +1,126 @@
 #include <iostream>
 #include <iomanip>
-#include <cstdlib>
-#include <string>
+#include <sstream>
 
 using namespace std;
+const int INF = 0x3f3f3f3f;
+using ll = long long;
+//using pii = pair<int, int>;
+//using pli = pair<ll, int>;
+//using pll = pair<ll, ll>;
+//using vi = vector<int>;
+//using vll = vector<ll>;
+//using vpii = vector<pii>;
 
-class Candidate {
+class Rational {
 public:
-    static const int maxLength{11};
-
-    Candidate(unsigned candID = 0, const string &candName = "", unsigned v = 0) {
-        ID = candID;
-        int namelen = candName.length() < 11 ? (int) candName.length() : 10;
-        for (int i = 0; i < namelen; i++) {
-            *(name + i) = candName[i];
+    Rational(int numator = 0, int denominator = 1) {
+        if (denominator < 0) {
+            denominator *= -1;
+            numator *= -1;
+        } else if (numator == 0) {
+            denominator = 1;
         }
-        *(name + namelen) = '\0';
-        votes = v;
+        this->numerator = numator;
+        this->denominator = denominator;
+    }            // default constructor
+    Rational add(const Rational &r1, const Rational &r2) {
+        int a = r1.numerator * r2.denominator + r2.numerator * r1.denominator;
+        int b = r1.denominator * r2.denominator;
+        return Rational(a, b);
     }
 
-    void setID(unsigned candID) {
-        ID = candID;
+    Rational subtract(const Rational &r1, const Rational &r2) {
+        int a = r1.numerator * r2.denominator - r2.numerator * r1.denominator;
+        int b = r1.denominator * r2.denominator;
+        return Rational(a, b);
     }
 
-    unsigned getID() const {
-        return ID;
+    Rational multiply(const Rational &r1, const Rational &r2) {
+        int a = r1.numerator * r2.numerator;
+        int b = r1.denominator * r2.denominator;
+        return Rational(a, b);
     }
 
-    void setName(const string &candName) {
-        int namelen = candName.length() < 11 ? (int) candName.length() : 10;
-        for (int i = 0; i < namelen; ++i) {
-            *(name + i) = candName[i];
-        }
-        *(name + namelen) = '\0';
+    Rational divide(const Rational &r1, const Rational &r2) {
+        int a = r1.numerator * r2.denominator;
+        int b = r1.denominator * r2.numerator;
+        return Rational(a, b);
     }
 
-    string getName() const {
-        return name;
-    }
-
-    void setVotes(unsigned v) {
-        votes = v;
-    }
-
-    unsigned getVotes() const {
-        return votes;
-    }
-
-    void increaseVotes() {
-        votes++;
-    }
-
+    string toRationalString() {
+        reduce();
+        string n = to_string(numerator);
+        string d = to_string(denominator);
+        string rst = n + "/" + d;
+        return rst;
+    }      // return as string format x/y
+    double toDouble() {
+        double n = numerator;
+        return n / denominator;
+    }              // return rational as double
 private:
-    unsigned ID;
-    char name[maxLength];
-    unsigned votes;
+    int numerator;   // numerator
+    int denominator; // denominator; positive integer
+
+    //int gcd(int a, int b) {
+    //    return (a % b == 0) ? b : gcd(b, a % b);
+    //}
+
+    void reduce() {
+        int a = numerator;
+        int b = denominator;
+        if (a < 0) a *= -1;
+        if (b < 0) b *= -1;
+        int temp;
+        if (a < b) {
+            temp = a;
+            a = b;
+            b = temp;
+        }
+        while (1) {
+            if (a % b == 0) break;
+            else {
+                temp = a;
+                a = b;
+                b = temp % b;
+            }
+        }
+        numerator /= b;
+        denominator /= b;
+    }   // convert to irreducible fraction with positive denominator
 };
 
 
 int main() {
-    cout << "Enter the number of candidates and polls: ";
-    int a, b;
-    cin >> a >> b;
-    srand(b);
-    string s;
-    Candidate n[10];
-    Candidate *ptr = n;
-    cin.ignore(100, '\n');
-    for (int i = 0; i < a; ++i) {
-        cout << "Enter the name of candidate #" << i + 1 << ": ";
-        getline(cin, s);
-        (*(ptr + i)).setName(s);
-        (*(ptr + i)).setID(i + 1);
-        (*(ptr + i)).setVotes(0);
-    }
-    int r;
-    for (int i = 0; i < b; ++i) {
-        r = rand() % a;
-        (*(ptr + r)).increaseVotes();
-    }
-
-    cout << "\n" << "Results of " << b << " exit polls\n";
-    for (int i = 0; i < a; ++i) {
-        cout << "Candidate #" << (*(ptr + i)).getID() << ": ";
-        int result = (*(ptr + i)).getVotes();
-        int f = result / 100;
-        result -= f * 100;
-        if (result / 10 >= 5) f++;
-        for (int j = 0; j < f; ++j) {
-            cout << "*";
-        }
-        result = (*(ptr + i)).getVotes();
-        double d = static_cast<double>(result);
-        double c = d / b * 100;
-        cout << " (" << (*(ptr + i)).getVotes() << " votes, " << fixed << setprecision(2) << c << "%)";
-        cout << "\n";
-    }
-    cout << "\n";
-    int max = 0;
-    int idx = 0;
-    for (int i = 0; i < a; ++i) {
-        if (max < (*(ptr + i)).getVotes()) {
-            max = (*(ptr + i)).getVotes();
-            idx = (*(ptr + i)).getID();
-        }
-    }
-    cout << "Candidate #" << idx << " " << (*(ptr + idx - 1)).getName() << " is likely to win.";
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+//#ifndef ONLINE_JUDGE
+//    freopen("../input.txt", "r", stdin);
+//    freopen("../output.txt", "w", stdout);
+//#endif
+    int n, m;
+    cout << "Enter the first rational: ";
+    cin >> n >> m;
+    Rational a(n, m);
+    cout << "First rational: " << a.toRationalString() << "\n";
+    cout << "Enter the second rational: ";
+    cin >> n >> m;
+    Rational b(n, m);
+    cout << "Second rational: " << b.toRationalString() << "\n";
+    Rational ra, rs, rm, rd;
+    ra = ra.add(a, b);
+    rs = rs.subtract(a, b);
+    rm = rm.multiply(a, b);
+    rd = rd.divide(a, b);
+    cout << fixed << setprecision(2) << a.toRationalString() << " + " << b.toRationalString() << " = "
+         << ra.toRationalString() << " = " << ra.toDouble() << "\n";
+    cout << fixed << setprecision(2) << a.toRationalString() << " - " << b.toRationalString() << " = "
+         << rs.toRationalString() << " = " << rs.toDouble() << "\n";
+    cout << fixed << setprecision(2) << a.toRationalString() << " * " << b.toRationalString() << " = "
+         << rm.toRationalString() << " = " << rm.toDouble() << "\n";
+    cout << fixed << setprecision(2) << a.toRationalString() << " / " << b.toRationalString() << " = "
+         << rd.toRationalString() << " = " << rd.toDouble() << "\n";
     return 0;
 }
