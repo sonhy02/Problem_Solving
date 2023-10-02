@@ -1,205 +1,242 @@
 #include <iostream>
-#include <iomanip>
-#include <array>
-#include <string>
-#include <vector>
-#include <algorithm>
 #include <sstream>
-
+#include <array>
 using namespace std;
 
-class Date {
-    friend std::ostream& operator<<(std::ostream&, const Date&);
-    friend std::istream& operator>>(std::istream&, Date&);
+
+class Equation {
+    friend bool operator==(const Equation& lhs, const Equation& rhs);
+    friend ostream& operator<<(ostream& out, const Equation& eq);
 public:
-    Date(int m = 1, int d = 1, int y = 1900);
-    void setDate(int, int, int);
-    Date& operator++();
-    Date operator++(int);
-    Date& operator+=(unsigned int);
-    static bool leapYear(int);
-    bool endOfMonth(int) const;
-    unsigned int getyear() {
-        return year;
-    }
-    unsigned int getmonth() {
-        return month;
-    }
-    unsigned int getday() {
-        return day;
-    }
+    Equation(double coefficients[], int number);
+    Equation(const Equation& rhs);             // copy constructor
+    ~Equation();
+    int degree() const { return size - 1; }
 
+    Equation& operator= (const Equation& rhs);
+    Equation& operator+= (const Equation& rhs);
+    Equation& operator-= (const Equation& rhs);
+    Equation& operator*= (double rhs);
 private:
-    unsigned int month;
-    unsigned int day;
-    unsigned int year;
-    static const std::array<unsigned int, 13> days;
-    void helpIncrement();
+    int size;       // size of the coeff array (= degree + 1)
+    double* coeff;  // coeff is an array
 };
-
-
-
-const array<unsigned int, 13> Date::days{
-        0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-Date::Date(int month, int day, int year) {
-    setDate(month, day, year);
-}
-
-void Date::setDate(int mm, int dd, int yy) {
-    if (mm >= 1 && mm <= 12) month = mm;
-    else throw invalid_argument{ "Month must be 1-12" };
-
-    if (yy >= 1900 && yy <= 2100) year = yy;
-    else throw invalid_argument{ "Year must be >= 1900 and <= 2100" };
-
-    //test for a leap year
-    if ((mm == 2 && leapYear(year) && dd >= 1 && dd <= 29) ||
-        (dd >= 1 && dd <= days[mm]))  day = dd;
-    else {
-        throw invalid_argument{ "Day is out of range for current month and year" };
-    }
-}
-
-
-
-
-Date& Date::operator++() {
-    helpIncrement();
-    return *this;
-}
-
-
-Date Date::operator++(int) {
-    Date temp{ *this };
-    helpIncrement();
-
-
-    return temp;
-}
-
-
-Date& Date::operator+=(unsigned int additionalDays) {
-    for (unsigned int i = 0; i < additionalDays; ++i) {
-        helpIncrement();
-    }
-    return *this;
-}
-
-
-
-
-bool Date::leapYear(int testYear) {
-    return (testYear % 400 == 0 || (testYear % 100 != 0 && testYear % 4 == 0));
-}
-bool Date::endOfMonth(int testDay) const {
-    if (month == 2 && leapYear(year))
-        return testDay == 29;
-    else return testDay == days[month];
-}
-void Date::helpIncrement() {
-    if (!endOfMonth(day))
-        ++day;
-    else {
-        if (month < 12) {
-            ++month;
-            day = 1;
-        }
-        else {
-            ++year;
-            month = 1;
-            day = 1;
-        }
-    }
-}
-ostream& operator<<(ostream& output, const Date& d) {
-
-    output << d.month << '/' << d.day << "/" << d.year;
-    return output;
-}
-
-
-istream& operator>>(istream& input, Date& d) {
-    input >> setw(2) >> d.month;
-    input.ignore();
-    input >> setw(2) >> d.day;
-    input.ignore();
-    input >> setw(4) >> d.year;
-    return input;
-}
-
-
-class Baby {
-public:
-    Baby(const std::string&, const Date&);
-    void setName(string&);
-    void setBirthDate(Date&);
-    string getName() const;
-    Date getBirthDate() const;
-private:
-    string name;
-    Date birthDate;
-};
-
-
-bool compareName(const Baby& b1, const Baby& b2) {
-    return b1.getName() < b2.getName();
-}
+Equation operator+(const Equation& lhs, const Equation& rhs);
+Equation operator-(const Equation& lhs, const Equation& rhs);
+Equation operator*(const Equation& lhs, double rhs);
+Equation operator*(double lhs, const Equation& rhs);
 
 int main() {
-    cout << "Enter the number of newborn babies: ";
-    int n;
-    cin >> n;
-    Date d0;
-    Baby b0("", d0);
-    vector<Baby> bVec(n,b0);
-    for (int i = 0; i < n; i++) {
-        string name;
-        Date d1, d2, d3;
-        cout << "\nEnter the baby name: ";
-        cin.ignore(100,'\n');
-        getline(cin, name);
-        cout << "Enter the baby's birth date in the form mm/dd/yyyy: ";
-        cin >> d1;
-        bVec[i].setName(name);
-        bVec[i].setBirthDate(d1);
-        if(d1.getday() == 29&&d1.getmonth() == 2) {
-            d3.setDate(d1.getmonth(), 28, d1.getyear() + 1);
-        }
-        else {
-            d3.setDate(d1.getmonth(), d1.getday(), d1.getyear() + 1);
-        }
-        d2.setDate(3, 1, d1.getyear() + 7);
-        cout << bVec[i].getName() << " born on " << bVec[i].getBirthDate();
-        cout << "\n100th day: " << (bVec[i].getBirthDate() += 99);
-        cout << "\nFirst birthday: " << d3;
-        cout << "\nFirst school day: " << d2 << "\n";
+    int eq1Num, eq2Num;
+    cout << "Number of terms in equation eq1: ";
+    cin >> eq1Num;
+    double coeff1[999]{};
+    cout << "Coefficients from the highest terms: ";
+    for (int i = 0; i < eq1Num; i++) {
+        int num;
+        cin >> num;
+        coeff1[i] = num;
     }
-    cout << "\nNewborn babies in the alphabetical order of names: \n";
-    sort(bVec.begin(), bVec.end(), compareName);
-    for (int i = 0; i < n; i++) {
-        cout << bVec[i].getName() << " (" << bVec[i].getBirthDate() << ")\n";
+    Equation eq1(coeff1, eq1Num);
+
+    cout << "Number of terms in equation eq2: ";
+    cin >> eq2Num;
+    double coeff2[999]{};
+    cout << "Coefficients from the highest terms: ";
+    for (int i = 0; i < eq2Num; i++) {
+        int num;
+        cin >> num;
+        coeff2[i] = num;
+    }
+    Equation eq2(coeff2, eq2Num);
+
+    cout << "eq1: " << eq1 << endl;
+    cout << "eq2: " << eq2 << endl;
+
+    Equation C = eq1 + eq2;
+    cout << "eq1+eq2: " << C << endl;
+    if (eq1 == eq2)
+        cout << "eq1 and eq2 are equal" << endl;
+    else {
+        cout << "eq1 and eq2 are not equal" << endl;
+        Equation D = eq1 - eq2;
+        cout << "eq1-eq2: " << D << endl;
+    }
+    Equation eq3(eq1);
+    cout << "eq3 after eq3(eq1): " << eq3 << endl;
+    eq3 += eq2;
+    cout << "eq3 after eq3+=eq2: " << eq3 << endl;
+    Equation eq4 = eq3 * 0.5;
+    cout << "eq3*0.5: " << eq4 << endl;
+    Equation eq5 = 4 * eq3;
+    cout << "4*eq3: " << eq5 << endl;
+}
+
+
+bool operator==(const Equation& lhs, const Equation& rhs) {
+    if (lhs.size != rhs.size) {
+        return false;
+    }
+    else {
+        for (int i = 0; i < lhs.size; i++) {
+            if (lhs.coeff[i] != rhs.coeff[i]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+ostream& operator<<(ostream& out, const Equation& eq) {
+    out << eq.coeff[0] << "x^" << eq.size - 1;
+    for (size_t i{ 1 }; i < eq.size - 1; ++i) {
+        if (eq.coeff[i] > 0) {
+            out << "+" << eq.coeff[i] << "x^" << eq.size - i - 1;
+        }
+        else if (eq.coeff[i] < 0) {
+            out << eq.coeff[i] << "x^" << eq.size - i - 1;
+        }
+    }
+    if (eq.coeff[eq.size - 1] > 0) {
+        out << "+" << eq.coeff[eq.size - 1] << "=0";
+    }
+    else if(eq.coeff[eq.size - 1] < 0){
+        out << eq.coeff[eq.size - 1] << "=0";
+    }
+    else {
+        out << "=0";
+    }
+    return out;
+}
+
+Equation::Equation(double coefficients[], int number) :
+        size{number >= 2 ? number: throw invalid_argument{"Array size must be greater than 0"} },
+        coeff{new double[size]{}}{
+    for (int i = 0; i < size; i++) {
+        coeff[i] = coefficients[i];
+    }
+}
+
+Equation::Equation(const Equation& rhs) :
+        size{rhs.size}, coeff{ new double[size] }
+{
+    for (int i = 0; i < size; i++) {
+        coeff[i] = rhs.coeff[i];
+    }
+}
+
+Equation::~Equation() {
+    delete[] coeff;
+}
+
+Equation& Equation::operator= (const Equation& rhs) {
+    size = rhs.size;
+    coeff =  new double[size];
+    for (int i = 0; i < size; i++) {
+        coeff[i] = rhs.coeff[i];
     }
 
+    return *this;
 }
 
+Equation& Equation::operator+= (const Equation& rhs) {
+    int maxSize = this->size;
+    double coefficients[999]{};
 
-Baby::Baby(const std::string& s, const Date& d) {
-    name = s;
-    birthDate = d;
+    if (rhs.size > maxSize) {
+        maxSize = rhs.size;
+    }
+
+    int sub = rhs.size - this->size;
+    if (sub >= 0) {
+        for (int i = 0; i < sub; i++) {
+            coefficients[i] = rhs.coeff[i];
+        }
+        for (int i = 0; i < this->size; i++) {
+            coefficients[i + sub] = rhs.coeff[i + sub] + this->coeff[i];
+        }
+    }
+
+    else if (sub < 0) {
+        sub = -sub;
+        for (int i = 0; i < sub; i++) {
+            coefficients[i] = this->coeff[i];
+        }
+        for (int i = 0; i < rhs.size; i++) {
+            coefficients[i + sub] = this->coeff[i + sub] + rhs.coeff[i];
+        }
+    }
+
+    Equation C2(coefficients, maxSize);
+    *this = C2;
+    return *this;
 }
 
-void Baby::setName(string& s) {
-    name = s;
+Equation& Equation::operator-= (const Equation& rhs) {
+    int maxSize = this->size;
+    double coefficients[999]{};
+
+    if (rhs.size > maxSize) {
+        maxSize = rhs.size;
+    }
+
+    int sub = rhs.size - this->size;
+    if (sub >= 0) {
+        for (int i = 0; i < sub; i++) {
+            coefficients[i] = -1 * rhs.coeff[i];
+        }
+        for (int i = 0; i < this->size; i++) {
+            coefficients[i + sub] = this->coeff[i] - rhs.coeff[i + sub];
+        }
+    }
+
+    else if (sub < 0) {
+        sub = -sub;
+        for (int i = 0; i < sub; i++) {
+            coefficients[i] = this->coeff[i];
+        }
+        for (int i = 0; i < rhs.size; i++) {
+            coefficients[i + sub] = this->coeff[i + sub] - rhs.coeff[i];
+        }
+    }
+
+    Equation C2(coefficients, maxSize);
+    *this = C2;
+    return *this;
 }
 
-void Baby::setBirthDate(Date& d) {
-    birthDate = d;
+Equation& Equation::operator*= (double rhs) {
+    double coefficients[999]{};
+    for (int i = 0; i < this->size; i++) {
+        coefficients[i] = this->coeff[i] * rhs;
+    }
+    Equation C2(coefficients, this->size);
+    *this = C2;
+    return *this;
 }
 
-string Baby::getName() const {
-    return name;
+Equation operator+(const Equation& lhs, const Equation& rhs) {
+    Equation lhs2 = lhs;
+    Equation rhs2 = rhs;
+    lhs2 += rhs2;
+    return lhs2;
 }
 
-Date Baby::getBirthDate() const {
-    return birthDate;
+Equation operator-(const Equation& lhs, const Equation& rhs) {
+    Equation lhs2 = lhs;
+    Equation rhs2 = rhs;
+    lhs2 -= rhs2;
+    return lhs2;
+}
+
+Equation operator*(const Equation& lhs, double rhs) {
+    Equation lhs2 = lhs;
+    lhs2 *= rhs;
+    return lhs2;
+}
+
+Equation operator*(double lhs, const Equation& rhs) {
+    Equation rhs2 = rhs;
+    rhs2 *= lhs;
+    return rhs2;
 }

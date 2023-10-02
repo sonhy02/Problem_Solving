@@ -1,8 +1,7 @@
 #include <iostream>
-#include <iomanip>
 #include <vector>
-#include <array>  // Include <array> for std::array
-#include <algorithm> // Include <algorithm> for std::sort
+#include <algorithm>
+#include <sstream>
 
 using namespace std;
 const int INF = 0x3f3f3f3f;
@@ -14,181 +13,230 @@ using vi = vector<int>;
 using vll = vector<ll>;
 using vpii = vector<pii>;
 
-class Date {
-    friend ostream &operator<<(ostream &, const Date &);
+class Equation {
+    friend bool operator==(const Equation &lhs, const Equation &rhs);
 
-    friend istream &operator>>(istream &, Date &); // Removed const
+    friend Equation operator+(const Equation &lhs, const Equation &rhs);
 
-    friend class Baby;
+    friend Equation operator-(const Equation &lhs, const Equation &rhs);
+
+    friend Equation operator*(double lhs, const Equation &rhs);
+
+    friend Equation operator*(const Equation &lhs, double rhs);
+
+    friend ostream &operator<<(ostream &out, const Equation &eq);
 
 public:
-    Date(int m = 1, int d = 1, int y = 1900); // default constructor
-    Date &operator++(); // prefix increment operator
-    Date operator++(int); // postfix increment operator
-    Date &operator+=(unsigned int); // add days, modify object
-    static bool leapYear(int); // is year a leap year?
-    bool endOfMonth(int) const; // is day at the end of month?
-private:
-    unsigned int month;
-    unsigned int day;
-    unsigned int year;
-    static const std::array<unsigned int, 13> days; // days per month
-    void helpIncrement(); // utility function for incrementing date
-};
-
-const array<unsigned int, 13> Date::days{
-        0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
-Date::Date(int m, int d, int y) : month(m), day(d), year(y) {} // Constructor implementation
-
-Date &Date::operator+=(unsigned int additionalDays) {
-    for (unsigned int i = 0; i < additionalDays; ++i) {
-        helpIncrement();
-    }
-    return *this; // enables cascading
-}
-
-bool Date::leapYear(int testYear) {
-    return (testYear % 400 == 0 || (testYear % 100 != 0 && testYear % 4 == 0));
-}
-
-bool Date::endOfMonth(int testDay) const {
-    if (month == 2 && leapYear(year))
-        return testDay == 29; // last day of Feb. in leap year
-    else return testDay == days[month];
-}
-
-void Date::helpIncrement() {
-    if (!endOfMonth(day))
-        ++day; // increment day
-    else {
-        if (month < 12) { // day is end of month and month < 12
-            ++month; // increment month
-            day = 1; // first day of new month
-        } else { // last day of year
-            ++year; // increment year
-            month = 1; // first month of new year
-            day = 1; // first day of new month
+    Equation(double coefficients[], int number) : size(number) {
+        this->coeff = new double[size];
+        for (int i = 0; i < size; ++i) {
+            this->coeff[i] = coefficients[i];
         }
     }
-}
 
-class Baby {
-public:
-    void setName(const string &name) { // Changed to const string reference
-        this->name = name;
-    }
-
-    void setBirthDate(const Date &birthDate) { // Changed to const Date reference
-        this->birthDate = birthDate;
-    }
-
-    void sethundred(const Date &hundredDate) { // Changed to const Date reference
-        this->hundredDate = hundredDate;
-    }
-
-    string getName() const {
-        return name;
-    }
-
-    Date getBirthDate() const {
-        return birthDate;
-    }
-
-    Date getFirstbirth() const {
-        return firstbirth;
-    }
-
-    Date gethundred() const {
-        return hundredDate;
-    }
-
-    Date getschool() const {
-        return school;
-    }
-
-    void fun() {
-        firstbirth = birthDate;
-        if (birthDate.day == 29 && birthDate.month == 2) {
-            firstbirth.day = 28;
+    Equation(const Equation &rhs) : size(rhs.size) {
+        this->coeff = new double[size];
+        for (int i = 0; i < size; ++i) {
+            this->coeff[i] = rhs.coeff[i];
         }
-        firstbirth.year++;
     }
 
-    void fun2() {
-        school.year = birthDate.year + 7;
-        school.month = 3;
-        school.day = 1;
+    ~Equation() {
+        delete[] coeff;
+    }
+
+    int degree() const { return size - 1; }
+
+    Equation &operator=(const Equation &rhs) {
+        if (this == &rhs) {
+            return *this;
+        }
+        delete[] coeff;
+        size = rhs.size;
+        coeff = new double[size];
+        for (int i = 0; i < rhs.size; ++i) {
+            coeff[i] = rhs.coeff[i];
+        }
+        return *this;
+    }
+
+
+    Equation &operator+=(const Equation &rhs) {
+        int m = max(this->degree(), rhs.degree()) + 1;
+        double *p = new double[m];
+
+        for (int i = 0; i < this->size; ++i) {
+            p[i + (m - this->size)] += this->coeff[i];
+        }
+
+        for (int i = 0; i < rhs.size; ++i) {
+            p[i + (m - rhs.size)] += rhs.coeff[i];
+        }
+
+        delete[] this->coeff;
+        this->coeff = new double[m];
+        this->coeff = p;
+        this->size = m;
+        return *this;
+    }
+
+
+    Equation &operator*=(double rhs) {
+        for (int i = 0; i < size; ++i) {
+            coeff[i] *= rhs;
+        }
+        return *this;
     }
 
 private:
-    string name;
-    Date birthDate;
-    Date hundredDate; // Initialize to birthDate, avoid += 99 here
-    Date firstbirth;
-    Date school;
+    int size;
+    double *coeff;
 };
 
-istream &operator>>(istream &in, Date &d) { // Removed const
-    in >> setw(2) >> d.month;
-    in.ignore();
-    in >> setw(2) >> d.day;
-    in.ignore();
-    in >> setw(4) >> d.year;
-    return in;
+Equation operator+(const Equation &lhs, const Equation &rhs) {
+    int m = max(lhs.degree(), rhs.degree()) + 1;
+    double *p = new double[m];
+    if (m == lhs.degree() + 1) {
+        for (int i = 0; i < m; ++i) {
+            p[i] = lhs.coeff[i];
+        }
+        for (int i = abs(lhs.degree() - rhs.degree()); i < m; ++i) {
+            p[i] += rhs.coeff[i - abs(lhs.degree() - rhs.degree())];
+        }
+    } else {
+        for (int i = 0; i < m; ++i) {
+            p[i] = rhs.coeff[i];
+        }
+        for (int i = abs(lhs.degree() - rhs.degree()); i < m; ++i) {
+            p[i] += lhs.coeff[i - abs(lhs.degree() - rhs.degree())];
+        }
+    }
+    Equation result(p, m);
+    delete[] p;
+    return result;
 }
 
-ostream &operator<<(ostream &output, const Date &d) {
-    output << d.month << '/' << d.day << "/" << d.year;
-    return output;
+Equation operator-(const Equation &lhs, const Equation &rhs) {
+    int m = max(lhs.degree(), rhs.degree()) + 1;
+    double *p = new double[m];
+    if (m == lhs.degree() + 1) {
+        for (int i = 0; i < m; ++i) {
+            p[i] = lhs.coeff[i];
+        }
+        for (int i = abs(lhs.degree() - rhs.degree()); i < m; ++i) {
+            p[i] -= rhs.coeff[i - abs(lhs.degree() - rhs.degree())];
+        }
+    } else {
+        for (int i = 0; i < m; ++i) {
+            p[i] = rhs.coeff[i] * (-1);
+        }
+        for (int i = abs(lhs.degree() - rhs.degree()); i < m; ++i) {
+            p[i] += lhs.coeff[i - abs(lhs.degree() - rhs.degree())];
+        }
+    }
+    Equation result(p, m);
+    delete[] p;
+    return result;
 }
 
-bool comp(const Baby &b1, const Baby &b2) {
-    return b1.getName() < b2.getName();
+Equation operator*(const Equation &lhs, double rhs) {
+    Equation result(lhs);
+    for (int i = 0; i <= result.degree(); ++i) {
+        result.coeff[i] *= rhs;
+    }
+    return result;
+}
+
+Equation operator*(double lhs, const Equation &rhs) {
+    Equation result(rhs);
+    for (int i = 0; i <= result.degree(); ++i) {
+        result.coeff[i] *= lhs;
+    }
+    return result;
+}
+
+ostream &operator<<(ostream &out, const Equation &eq) {
+    ostringstream ou;
+
+    for (int i = 0; i < eq.size; ++i) {
+        if (eq.coeff[i] == 0) continue;
+        if (i == 0)
+            ou << eq.coeff[i] << "x^" << eq.size - 1 - i;
+        else {
+            if (i == eq.size - 1) {
+                if (eq.coeff[i] >= 0) ou << "+";
+                ou << eq.coeff[i];
+            } else if (eq.coeff[i] >= 0) {
+                ou << "+" << eq.coeff[i] << "x^" << eq.size - 1 - i;
+            } else if (i < eq.size - 1) {
+                ou << eq.coeff[i] << "x^" << eq.size - 1 - i;
+            }
+        }
+    }
+    ou << "=0";
+    out << ou.str();
+    return out;
+}
+
+bool operator==(const Equation &lhs, const Equation &rhs) {
+    if (lhs.degree() != rhs.degree()) {
+        return false;
+    } else {
+        for (int i = 0; i < lhs.size; ++i) {
+            if (lhs.coeff[i] != rhs.coeff[i])
+                return false;
+        }
+        return true;
+    }
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-//#ifndef ONLINE_JUDGE
-//    freopen("../input.txt", "r", stdin);
-//    freopen("../output.txt", "w", stdout);
-//#endif
-    cout << "Enter the number of newborn babies: ";
-    int t;
-    cin >> t;
-    cin.ignore(100 , '\n');
-    vector<Baby> v(t);
-    for (int i = 0; i < t; ++i) {
-        cout << "\n";
-        string s;
-        cout << "Enter the baby name: ";
-        getline(cin, s);
-        v[i].setName(s);
-        Date d;
-        cout << "Enter the baby's birth date in the form mm/dd/yyyy: ";
-        cin >> d;
-        v[i].setBirthDate(d);
-        cin.ignore(100 , '\n');
-        cout << v[i].getName() << " born on " << v[i].getBirthDate() << "\n";
-        Date temp = v[i].getBirthDate();
-        temp += 99;
-        v[i].sethundred(temp);
-        cout << "100th day: " << v[i].gethundred() << "\n";
-        v[i].fun();
-        cout << "First birthday: " << v[i].getFirstbirth() << "\n";
-        v[i].fun2();
-        cout << "First school day: " << v[i].getschool() << "\n";
+
+    cout << "Number of terms in equation eq1: ";
+    int n;
+    cin >> n;
+    cout << "Coefficients from the highest terms: ";
+    double *p1 = new double[n];
+    for (int i = 0; i < n; ++i) {
+        cin >> p1[i];
     }
-    sort(v.begin(), v.end(), comp);
-    cout << "\n";
-    cout << "Newborn babies in the alphabetical order of names: \n";
-    for (int i = 0; i < v.size(); ++i) {
-        cout << v[i].getName() << " (";
-        cout << v[i].getBirthDate();
-        cout << ")\n";
+    Equation eq1(p1, n);
+    delete[] p1;
+
+    int m;
+    cout << "Number of terms in equation eq2: ";
+    cin >> m;
+    cout << "Coefficients from the highest terms: ";
+    double *p2 = new double[m];
+    for (int i = 0; i < m; ++i) {
+        cin >> p2[i];
     }
+    Equation eq2(p2, m);
+    delete[] p2;
+
+    cout << "eq1: " << eq1 << "\n";
+    cout << "eq2: " << eq2 << "\n";
+    Equation C = eq1 + eq2;
+    cout << "eq1+eq2: " << C << endl;
+    if (eq1 == eq2)
+        cout << "eq1 and eq2 are equal" << "\n";
+    else {
+        cout << "eq1 and eq2 are not equal" << "\n";
+        Equation D = eq1 - eq2;
+        cout << "eq1-eq2: " << D << endl;
+    }
+
+    Equation eq3(eq1);
+    cout << "eq3 after eq3(eq1): " << eq3 << "\n";
+    eq3 += eq2;
+    cout << "eq3 after eq3+=eq2: " << eq3 << "\n";
+    Equation eq4 = eq3 * 0.5;
+    cout << "eq3*0.5: " << eq4 << "\n";
+    Equation eq5 = 4 * eq3;
+    cout << "4*eq3: " << eq5 << "\n";
 
     return 0;
 }
