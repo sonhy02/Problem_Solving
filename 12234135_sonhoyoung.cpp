@@ -147,6 +147,14 @@ Equation operator*(const Equation &lhs, double rhs) {
     return result;
 }
 
+Equation operator*(double lhs, const Equation &rhs) {
+    Equation result(rhs);
+    for (int i = 0; i <= result.degree(); ++i) {
+        result.coeff[i] *= lhs;
+    }
+    return result;
+}
+
 ostream &operator<<(ostream &out, const Equation &eq) {
     ostringstream ou;
 
