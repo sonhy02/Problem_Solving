@@ -23,25 +23,7 @@ int main() {
     int t;
     cin >> t;
     while (t--) {
-        string s;
-        cin >> s;
-        int cnt = 1;
-        int ans = 0;
-        for (int i = 0; i < s.size(); ++i) {
-            bool flag = false;
-            if (s[i] == s[i + 1] && s[i] == 'A') {
-                if (i > 1 && s[i - 1] == 'B') flag = true;
-                cnt++;
-            } else if (s[i] == s[i - 1] && s[i] == 'A' && s[i + 1] == 'B' && i < s.size()) flag = true;
-            if (s[i] != s[i + 1]) {
-                if (flag) {
-                    ans += cnt;
-                    cnt = 1;
-                }
-            }
 
-        }
-        cout << ans << "\n";
     }
 
     return 0;
