@@ -10,6 +10,26 @@ using vi = vector<int>;
 using vll = vector<ll>;
 using vpii = vector<pii>;
 
+int parent[100001];
+
+int find(int x) {
+    if (x == parent[x]) return x;
+    else return parent[x] = find(parent[x]);
+}
+
+void merge(int x, int y) {
+    x = find(x);
+    y = find(y);
+    parent[y] = x;
+}
+
+bool sameparent(int x, int y) {
+    x = find(x);
+    y = find(y);
+    if (x == y)return true;
+    else return false;
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
@@ -18,37 +38,22 @@ int main() {
     freopen("../input.txt", "r", stdin);
     freopen("../output.txt", "w", stdout);
 #endif
-
-    int t;
-    cin >> t;
-    vi v(t);
-    for (int i = 0; i < t; ++i) {
-        cin >> v[i];
+    int n, t;
+    cin >> n >> t;
+   vpii v;
+    for (int i = 0; i <= n; ++i) {
+        parent[i] = i;
     }
-    sort(v.begin(), v.end());
-    int l = 0;
-    int r = t - 1;
-    int min = INF;
-    int ans1 = v[l], ans2 = 0, ans3 = v[r];
-    while (l < r) {
-        int sum = v[l] + v[r];
-        for (int i = l + 1; i < r; ++i) {
-            int temp = sum + v[i];
-            if (abs(temp) < abs(min)) {
-                ans1 = v[l];
-                ans2 = v[i];
-                ans3 = v[r];
-                min = temp;
-            }
-            if (temp == 0) break;
-        }
-        if (v[l] + v[r] > 0) {
-            r--;
-        } else if (v[l] + v[r] < 0) {
-            l++;
+    while (t--) {
+        int a, b;
+        cin >> a >> b;
+        if (sameparent(a, b)) {
+            merge(a, b);
         }
     }
 
-    cout << ans1 << " " << ans2 << "" << ans3 << "\n";
+
+
+
     return 0;
 }

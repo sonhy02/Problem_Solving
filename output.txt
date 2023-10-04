@@ -1,0 +1,21 @@
+Enter the name, lower left corner and side of a square (EOF to end): 
+Squares in increasing order of area
+S2(-2, -5) side=2
+S1(1, 2) side=3
+S5(40, -30) side=4
+S3(15, 20) side=5
+S4(100, -10) side=10
+
+Squares in increasing order of x-coordinate
+S2(-2, -5) side=2
+S1(1, 2) side=3
+S3(15, 20) side=5
+S5(40, -30) side=4
+S4(100, -10) side=10
+
+Squares in increasing order of y-coordinate
+S5(40, -30) side=4
+S4(100, -10) side=10
+S2(-2, -5) side=2
+S1(1, 2) side=3
+S3(15, 20) side=5
