@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-const int INF = (int) 1e11;
+const int INF = (int) 1e12;
 using ll = long long;
 using pii = pair<int, int>;
 using pli = pair<ll, int>;
@@ -10,24 +10,17 @@ using vi = vector<int>;
 using vll = vector<ll>;
 using vpii = vector<pii>;
 
-int parent[100001];
-
-int find(int x) {
-    if (x == parent[x]) return x;
-    else return parent[x] = find(parent[x]);
+int gcd(int a, int b) {
+    return (a % b == 0) ? b : gcd(b, a % b);
 }
 
-void merge(int x, int y) {
-    x = find(x);
-    y = find(y);
-    parent[y] = x;
-}
+int ccw(pii p1, pii p2, pii p3) {
+    int s = p1.first * p2.second + p2.first * p3.second + p3.first * p1.second;
+    s -= (p1.second * p2.first + p2.second * p3.first + p3.second * p1.first);
 
-bool sameparent(int x, int y) {
-    x = find(x);
-    y = find(y);
-    if (x == y)return true;
-    else return false;
+    if (s > 0) return 1;
+    else if (s == 0) return 0;
+    else return -1;
 }
 
 int main() {
@@ -38,22 +31,8 @@ int main() {
     freopen("../input.txt", "r", stdin);
     freopen("../output.txt", "w", stdout);
 #endif
-    int n, t;
-    cin >> n >> t;
-   vpii v;
-    for (int i = 0; i <= n; ++i) {
-        parent[i] = i;
-    }
-    while (t--) {
-        int a, b;
-        cin >> a >> b;
-        if (sameparent(a, b)) {
-            merge(a, b);
-        }
-    }
+    int n, t, m, s, e;
+    cin >> n >> t >> m >> s >> e;
 
 
-
-
-    return 0;
 }
