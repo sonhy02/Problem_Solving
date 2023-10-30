@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <sstream>
 #include <iomanip>
+#include <stdexcept>
 
 using namespace std;
 const int INF = 0x3f3f3f3f;

@@ -11,32 +11,13 @@ using vi = vector<int>;
 using vll = vector<ll>;
 using vpii = vector<pii>;
 
-int n, x;
-vi v;
+struct Node {
+    int prices;
+    vi v;
+};
 
-bool isPossible(int mid) {
-    ll sum = 0;
-    for (int i = 0; i < n; ++i) {
-        if (v[i] < mid) {
-            sum += mid - v[i];
-        }
-    }
-    return sum <= x;
-}
-
-int binarySearch(int left, int right) {
-    int ans = left;
-
-    while (left < right) {
-        int mid = left + right / 2;
-        if (isPossible(mid)) {
-            ans = mid;
-            left = mid + 1;
-        } else {
-            right = mid ;
-        }
-    }
-    return ans;
+bool comp(Node n1, Node n2) {
+    return n1.prices < n2.prices;
 }
 
 int main() {
@@ -47,18 +28,53 @@ int main() {
     freopen("../input.txt", "r", stdin);
     freopen("../output.txt", "w", stdout);
 #endif
-    int t;
-    cin >> t;
-    while (t--) {
-        cin >> n >> x;
-        v.resize(n);
-        for (int i = 0; i < n; ++i) {
-            cin >> v[i];
+    int n, k, p;
+    cin >> n >> k >> p;
+    Node node[n];
+    for (int i = 0; i < n; ++i) {
+        cin >> node[i].prices;
+        for (int j = 0; j < k; ++j) {
+            int a;
+            cin >> a;
+            node[i].v.push_back(a);
         }
-
-        int ans = binarySearch(1, 1000000009);
-        cout << ans << "\n";
     }
+    sort(node, node + n, comp);
+    int price = 0;
+    vi rst(k);
+    vi node_num;
+    for (int i = 0; i < n; ++i) {
+        node_num.push_back(i);
+        bool flag = false;
+        for (int j = 0; j < k; ++j) {
+            rst[j] += node[i].v[j];
+            if (rst[j] < p) {
+                flag = true;
+            }
+        }
+        price += node[i].prices;
+        if (i == n - 1) {
+            for (int l = 0; l < k; ++l) {
+                if (rst[l] < p) {
+                    cout << -1;
+                    return 0;
+                }
+            }
+        }
+        if (!flag) break;
+    }
+    sort(node_num.begin(), node_num.end(), greater());
+    for (int i = 1; i < node_num.size(); ++i) {
+        bool flag = false;
+        for (int j = 0; j < k; ++j) {
+            if (rst[j] - node[node_num[i]].v[j] < p) {
+                flag = true;
+                break;
+            }
+        }
+        if (flag)continue;
+    }
+
 
     return 0;
 }

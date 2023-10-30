@@ -1,110 +1,37 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <sstream>
 
 using namespace std;
-const int INF = 0x3f3f3f3f;
-using ll = long long;
-using pii = pair<int, int>;
-using pli = pair<ll, int>;
-using pll = pair<ll, ll>;
-using vi = vector<int>;
-using vll = vector<ll>;
-using vpii = vector<pii>;
-
-//vi merge(vi v1, vi v2) {
-//    int l = 0, r = 0;
-//    vi v;
-//    while (l < v1.size() && r < v2.size()) {
-//        if (v1[l] < v2[r] && l < v1.size()) {
-//            v.push_back(v1[l]);
-//            l++;
-//        } else if (v1[l] > v2[r] && r < v2.size()) {
-//            v.push_back(v2[r]);
-//            r++;
-//        }
-//    }
-//    return v;
-//}
-//
-//
-//vi mergesort(vi v) {
-//    vi v1, v2;
-//    if (v.size() > 1) {
-//        int m = v.size() / 2;
-//        for (int i = 0; i < m; ++i) {
-//            v1.push_back(v[i]);
-//        }
-//        for (int i = m; i < v.size(); ++i) {
-//            v2.push_back(v[i]);
-//        }
-//    }
-//    return merge(mergesort(v1), mergesort(v2));
-//}
-
-
-class Car {
-public:
-    Car(const string brand, const int price);
-    void setBrand(const string brand);
-    string getBrand();
-    void setPrice(const int price);
-    int getPrice();
-    void printCarInfo();
-private:
-    string carBrand;
-    int carPrice;
-};
-
-class SportsCar : public Car {
-public:
-    SportsCar(const string brand, const int price)
-            : Car(brand, price), turbo(false) {}
-    void toggleTurbo() {
-        if(turbo)
-            turbo = false;
-        else
-            turbo = true;
-    }
-private:
-    bool turbo;
-};
-
-
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-//    int t;
-//    cin >> t;
-//    vi v(t);
-//    for (int i = 0; i < t; ++i) {
-//        cin >> v[t];
-//    }
-//    mergesort(v);
-//    for (int i = 0; i < t; ++i) {
-//        cout << v[i] << " ";
-//    }
+#ifndef ONLINE_JUDGE
+    freopen("../input.txt", "r", stdin);
+    freopen("../output.txt", "w", stdout);
+#endif
+    int n, k; // 문제에서의 N,K와 동일
+    vector<int> v1(0); // 1~N까지를 저장할 벡터
+    vector<int> v2(0); // 요세푸스 순열 순서로 저장될 벡터
+    cin >> n >> k;
+    for (int yo = 1; yo <= n; yo++) v1.push_back(yo); // v1에 1~N까지 저장
+    int abc = k; // 처음 입력받은 K값을 유지해주기 위한 임시 변수
+    while (size(v1) != 0) {
+        if (abc > size(v1)) { // else문에서 abc-1 이 들어가므로 >=이 아닌 >로 비교
+            for (int i = 0; i < size(v2); i++) { // 요세푸스 벡터로 빠져나간 값을 제거해주는 코드
+                remove(v1.begin(), v1.end(), v2[i]);
+            }
+            abc -= size(v1); // resize전에 abc값 미리 초기화
+            v1.resize(n - size(v2)); // remove함수는 벡터의 크기는 변하지 않으므로 resize를 통해 겅제로 변환
+        } else {
+            v2.push_back(v1[abc - 1]);
+            abc += k;
+        }
+    }
 
-    while ()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // 요세푸스 순열을 문제의 출력 조건에 맞게 출력하기 위한 코드
+    cout << '<' << v2[0] << ", ";
+    for (int j = 1; j < size(v2) - 1; j++) cout << v2[j] << ", ";
+    cout << v2[size(v2) - 1] << '>';
     return 0;
 }
-
 

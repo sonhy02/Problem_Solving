@@ -22,15 +22,9 @@ void dijkstra(int s) {
             if (d[next] > nd) {
                 d[next] = nd;
                 q.push(make_pair(nd, next));
-
             }
-
         }
-
-
     }
-
-
 }
 
 

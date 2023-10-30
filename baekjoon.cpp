@@ -10,18 +10,17 @@ using vi = vector<int>;
 using vll = vector<ll>;
 using vpii = vector<pii>;
 
-int gcd(int a, int b) {
-    return (a % b == 0) ? b : gcd(b, a % b);
+ll init(vi& v, vll& tree, int node, int start, int end) {
+    if (start == end)
+        return tree[node] = v[start];
+    int mid = (start + end) / 2;
+    return tree[node] = init(v, tree, node * 2, start, mid)
+                        + init(v, tree, node * 2 + 1, mid + 1, end);
+
 }
 
-int ccw(pii p1, pii p2, pii p3) {
-    int s = p1.first * p2.second + p2.first * p3.second + p3.first * p1.second;
-    s -= (p1.second * p2.first + p2.second * p3.first + p3.second * p1.first);
 
-    if (s > 0) return 1;
-    else if (s == 0) return 0;
-    else return -1;
-}
+
 
 int main() {
     ios::sync_with_stdio(false);
@@ -31,8 +30,21 @@ int main() {
     freopen("../input.txt", "r", stdin);
     freopen("../output.txt", "w", stdout);
 #endif
-    int n, t, m, s, e;
-    cin >> n >> t >> m >> s >> e;
+    int n, m;
+    cin >> n >> m;
+    vi v(n);
+    int check = 0;
+    for (int i = 0; i < n; ++i) {
+        cin >> v[i];
+        check += v[i];
+    }
+    if (check < m) {
+        cout << 0;
+        return 0;
+    }
 
+
+
+    return 0;
 
 }
