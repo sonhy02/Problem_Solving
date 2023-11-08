@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-const int INF = (int) 1e12;
+const int INF = (int) 1e9;
+
 using ll = long long;
 using pii = pair<int, int>;
 using pli = pair<ll, int>;
@@ -9,7 +10,6 @@ using pll = pair<ll, ll>;
 using vi = vector<int>;
 using vll = vector<ll>;
 using vpii = vector<pii>;
-
 
 
 int main() {
@@ -20,10 +20,12 @@ int main() {
     freopen("../input.txt", "r", stdin);
     freopen("../output.txt", "w", stdout);
 #endif
+    int t;
+    cin >> t;
+    while (t--) {
 
 
-
+    }
 
     return 0;
-
 }

@@ -1,8 +1,38 @@
-//ll init(vi &v, vll &tree, int node, int start, int end) {
-//    if (start == end)
-//        return tree[node] = v[start];
-//    int mid = (start + end) / 2;
-//    return tree[node] = init(v, tree, node * 2, start, mid)
-//                        + init(v, tree, node * 2 + 1, mid + 1, end);
-//
-//}
+// Fig. 13.14: Fig13_14.cpp
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+class arithmetic {
+public:
+    arithmetic(int n1, int n2) {
+        x = n1, y = n2;
+    };
+
+    void print() {
+        cout << setw(9)<< x << "\t" << setw(9)<< x << "\t" << setw(9)<< x << "\n";
+        cout << "+" << setw(8) << y << "\t" << "-"<< setw(8) << y << "\t" << "*" << setw(8)<< y << "\n";
+        cout << setw(10)<< "----------\t" << setw(10)<< "----------\t" << setw(10)<< "----------\t"  << "\n";
+        cout << setw(9) << x+y  << "\t"<< setw(9) << x-y << "\t" << setw(9)<< x*y << "\n\n\n";
+
+
+    }
+
+private:
+    int x;
+    int y;
+};
+
+int main() {
+#ifndef ONLINE_JUDGE
+    freopen("../input.txt", "r", stdin);
+    freopen("../output.txt", "w", stdout);
+#endif
+    int a, b;
+    while (cin >> a >> b) {
+        arithmetic v(a, b);
+        v.print();
+    }
+
+}
