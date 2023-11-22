@@ -1,38 +1,46 @@
-// Fig. 13.14: Fig13_14.cpp
 #include <iostream>
-#include <iomanip>
+#include <array>
+#include <cmath>
 
 using namespace std;
 
-class arithmetic {
-public:
-    arithmetic(int n1, int n2) {
-        x = n1, y = n2;
-    };
+array<array<char, 6600>, 6600> arr;
+int a;
 
-    void print() {
-        cout << setw(9)<< x << "\t" << setw(9)<< x << "\t" << setw(9)<< x << "\n";
-        cout << "+" << setw(8) << y << "\t" << "-"<< setw(8) << y << "\t" << "*" << setw(8)<< y << "\n";
-        cout << setw(10)<< "----------\t" << setw(10)<< "----------\t" << setw(10)<< "----------\t"  << "\n";
-        cout << setw(9) << x+y  << "\t"<< setw(9) << x-y << "\t" << setw(9)<< x*y << "\n\n\n";
+void Star(array<array<char, 6600>, 6600> &s, int n, int N, int m, int M) {
+    int nn = (N - n) / 3;
+    int mm = (M - m) / 3;
+    if (nn == 0 || mm == 0) return;
+    Star(s, n, n + nn, m, m + mm);
+    Star(s, n + nn, N - nn, m, m + mm);
+    Star(s, N - nn, N, m, m + mm);
+    Star(s, n, n + nn, m + mm, M - mm);
 
+    for (int i = n + nn; i < N - nn; i++)
+        for (int j = m + mm; j < M - mm; j++)
+            s[i][j] = ' ';
 
-    }
-
-private:
-    int x;
-    int y;
-};
+    Star(s, N - nn, N, m + mm, M - mm);
+    Star(s, n, n + nn, M - mm, M);
+    Star(s, n + nn, N - nn, M - mm, M);
+    Star(s, N - nn, N, M - mm, M);
+}
 
 int main() {
-#ifndef ONLINE_JUDGE
-    freopen("../input.txt", "r", stdin);
-    freopen("../output.txt", "w", stdout);
-#endif
-    int a, b;
-    while (cin >> a >> b) {
-        arithmetic v(a, b);
-        v.print();
-    }
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
 
+    cin >> a;
+    int i, j;
+    for (i = 0; i < a; i++)
+        for (j = 0; j < a; j++)
+            arr[i][j] = '*';
+    Star(arr, 0, a, 0, a);
+    for (i = 0; i < a; i++) {
+        for (j = 0; j < a; j++)
+            cout << arr[i][j];
+        cout << '\n';
+    }
+    return 0;
 }
