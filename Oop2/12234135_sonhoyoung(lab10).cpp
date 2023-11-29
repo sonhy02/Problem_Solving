@@ -20,10 +20,10 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-//#ifndef ONLINE_JUDGE
-//    freopen("../input.txt", "r", stdin);
-//    freopen("../output.txt", "w", stdout);
-//#endif
+#ifndef ONLINE_JUDGE
+    freopen("../input.txt", "r", stdin);
+    freopen("../output.txt", "w", stdout);
+#endif
     cout << "Enter number of online orders or customer name on separate lines (EOF to end): ";
     int i;
     int sum = 0, error = 0;
