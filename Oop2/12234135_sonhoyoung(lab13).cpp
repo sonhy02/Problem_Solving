@@ -53,6 +53,7 @@ private:
 
 
 int main() {
+
     cout << "Enter the stack capacity: ";
     int a, b;
     cin >> a;
