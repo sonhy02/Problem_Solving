@@ -1,91 +1,103 @@
 #include <iostream>
-#include <iomanip>
-#include <fstream>
-#include <cstdlib>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <sstream>
+#include <iomanip>
+#include <cmath>
+#include <fstream>
 
 using namespace std;
+const int INF = 0x3f3f3f3f;
+using ll = long long;
+using pii = pair<int, int>;
+using pli = pair<ll, int>;
+using pll = pair<ll, ll>;
+using vi = vector<int>;
+using vll = vector<ll>;
+using vpii = vector<pii>;
 
-class StackFullException : public std::runtime_error {
+
+class Word {
 public:
-    StackFullException() : std::runtime_error("<<Error>> stack is full") {}
-};
+    Word(string w) {
+        word = w;
+        this->setCount(1);
+    }
 
+    string getWord() {
+        return word;
+    }
 
-class StackEmptyException : public std::runtime_error {
-public:
-    StackEmptyException() : std::runtime_error("<<Error>> stack is empty") {}
-};
+    void setWord(string w) {
+        word = w;
+    }
 
-class Stack {
-public:
-    Stack(int cap) {
-        capacity = cap;
-        curSize = 0;
-    }   // capacity=cap, curSize=0으로 초기화
-    void push(int x) {
-        if (capacity == curSize)
-            throw StackFullException{};
-        else
-            v.push_back(x);
-        curSize++;
-    }   // 벡터의 push_back 함수 이용하여 구현
-    void pop() {
-        if (curSize == 0)
-            throw StackEmptyException{};
-        else
-            v.pop_back();
-        curSize--;
-    }      // 벡터의 pop_back 함수 이용하여 구현
-    void print() const {
-        for (int i = 0; i < v.size(); ++i) {
-            cout << v[i] << " ";
-        }
-        cout << "\n";
+    int getCount() const {
+        return count;
+    }
+
+    void setCount(int c) {
+        count = c;
+    }
+
+    void increment() {
+        count++;
     }
 
 private:
-    vector<int> v; // 정수 벡터
-    int capacity;  // 스텍의 최대 용량
-    int curSize;   // 현재 스텍에 있는 데이터의 개수
+    string word;
+    int count;
 };
 
 
-int main() {
-    cout << "Enter the stack capacity: ";
-    int a, b;
-    cin >> a;
-    Stack s(a);
-    while (cout << "Enter a choice (1 x: push x, 2: pop, 3: print, 4: quit): ", cin >> a) {
-        if (a == 4) break;
+vector<Word> v;
 
-        switch (a) {
-            case 1:
-                try {
-                    cin >> b;
-                    s.push(b);
-                } catch (StackFullException &e) {
-                    cout << e.what() << "\n";
-                }
-                break;
-            case 2:
-                try {
-                    s.pop();
-                } catch (StackEmptyException &e) {
-                    cout << e.what() << "\n";
-                }
-                break;
-            case 3:
-                cout << "stack: ";
-                s.print();
-                break;
-            default:
-                break;
+int findword(string s) {
+    for (int i = 0; i < v.size(); ++i) {
+        if (s == v[i].getWord()) {
+            v[i].increment();
+            return i;
         }
-
     }
-    cout << "Bye now!";
+    return -1;
+
+}
+
+bool comp(Word a, Word b) {
+
+    if (a.getCount() == b.getCount()) {
+        return a.getWord() < b.getWord();
+
+    } else {
+        return a.getCount() > b.getCount();
+    }
+
+}
+
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    cout << "Enter the file name: ";
+    string s, w;
+    cin >> s;
+    cout << "Word count has been recorded in file \"Words_" << s <<  "\"";
+    ifstream inClientFile{s, ios::in};
+    ofstream outClientFile{"Words_" + s, ios::out};
+    while (inClientFile >> w) {
+        if (w.back() == '.' || w.back() == ',' || w.back() == '?' || w.back() == '!') {
+            w.pop_back();
+        }
+        if (findword(w) == -1) {
+            v.push_back(w);
+        }
+    }
+    sort(v.begin(), v.end(), comp);
+    for (int i = 0; i < v.size(); ++i) {
+        outClientFile << v[i].getWord() << ": " << v[i].getCount() << "\n";
+    }
+
 
     return 0;
 }
