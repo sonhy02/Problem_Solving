@@ -46,8 +46,8 @@ int main() {
     cin.tie(NULL);
     cout.tie(NULL);
 #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    freopen("../input.txt", "r", stdin);
+    freopen("../output.txt", "w", stdout);
 #endif
     ll n, m, k;
     cin >> n >> m >> k;
@@ -60,7 +60,7 @@ int main() {
         cin >> a >> b >> c;
         if (a == 1) {
             update(tree, 1, 0, n - 1, b - 1, c - v[b - 1]);
-            v[b-1] = c;
+            v[b - 1] = c;
         } else {
             cout << sum(tree, 1, 0, n - 1, b - 1, c - 1) << "\n";
         }
