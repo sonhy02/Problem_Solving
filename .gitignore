@@ -1,7 +1,1 @@
 # Project exclude paths
-/cmake-build-debug/
-/CMakeLists.txt
-/.idea/
-/.DS_Store
-/anything.cpp
-/.vscode/

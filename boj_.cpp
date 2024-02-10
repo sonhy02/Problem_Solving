@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-
 using ll = long long;
 const int INF = 0x3f3f3f3f;
 using pii = pair<int, int>;
@@ -11,28 +10,27 @@ using vi = vector<int>;
 using vll = vector<ll>;
 using vpii = vector<pii>;
 
+
+ll dp[32770];
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
+
 #ifndef ONLINE_JUDGE
     freopen("../input.txt", "r", stdin);
     freopen("../output.txt", "w", stdout);
 #endif
-    int t;
-    cin >> t;
-    while (t--) {
-        int a, b;
-        int ans = 1;
-        cin >> a >> b;
-        for (int i = 0; i * i < a; ++i) {
-            if (a % i) {
-                if (i >= b) ans = max(ans, i);
-                if (a / i >= b)ans = max(ans, a / i);
-            }
-        }
-        cout << ans << "\n";
+    int a;
+    dp[1] = 1;
+    dp[2] = 1;
+    dp[3] = 1;
+    dp[4] = 2;
+    while (cin >> a , a != 0){
 
     }
+
+
     return 0;
 }
