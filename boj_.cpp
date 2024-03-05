@@ -10,8 +10,16 @@ using vi = vector<int>;
 using vll = vector<ll>;
 using vpii = vector<pii>;
 
+int dfs_cnt = 0;
+void dfs() {
 
-ll dp[32770];
+
+}
+
+
+int m[500001];
+vi edge[500001];
+pii ett[500001];
 
 int main() {
     ios::sync_with_stdio(false);
@@ -22,13 +30,15 @@ int main() {
     freopen("../input.txt", "r", stdin);
     freopen("../output.txt", "w", stdout);
 #endif
-    int a;
-    dp[1] = 1;
-    dp[2] = 1;
-    dp[3] = 1;
-    dp[4] = 2;
-    while (cin >> a , a != 0){
 
+    int a, b;
+    cin >> a >> b;
+    cin >> m[1];
+    for (int i = 2; i <= a - 1; ++i) {
+        cin >> m[i];
+        int c;
+        cin >> c;
+        edge[i].push_back(c);
     }
 
 

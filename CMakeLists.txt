@@ -3,4 +3,4 @@ project(ps)
 include_directories(includes)
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(out boj_.cpp)
+add_executable(out any.cpp)

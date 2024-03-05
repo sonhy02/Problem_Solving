@@ -1,46 +1,75 @@
-#include <iostream>
-#include <array>
-#include <cmath>
+#include <bits/stdc++.h>
 
 using namespace std;
+using ll = long long;
+const int INF = 0x3f3f3f3f;
+using pii = pair<int, int>;
+using pli = pair<ll, int>;
+using pll = pair<ll, ll>;
+using vi = vector<int>;
+using vll = vector<ll>;
+using vpii = vector<pii>;
 
-array<array<char, 6600>, 6600> arr;
-int a;
+int n;
+ll segTree[400004];
 
-void Star(array<array<char, 6600>, 6600> &s, int n, int N, int m, int M) {
-    int nn = (N - n) / 3;
-    int mm = (M - m) / 3;
-    if (nn == 0 || mm == 0) return;
-    Star(s, n, n + nn, m, m + mm);
-    Star(s, n + nn, N - nn, m, m + mm);
-    Star(s, N - nn, N, m, m + mm);
-    Star(s, n, n + nn, m + mm, M - mm);
+void update(int ptr, int l, int r, int i, ll val) {
+    if (i < l || r < i) return;
+    if (l == r) {
+        segTree[ptr] += val;
+        return;
+    }
 
-    for (int i = n + nn; i < N - nn; i++)
-        for (int j = m + mm; j < M - mm; j++)
-            s[i][j] = ' ';
+    update(ptr * 2, l, (l + r) / 2, i, val);
+    update(ptr * 2 + 1, (l + r) / 2 + 1, r, i, val);
 
-    Star(s, N - nn, N, m + mm, M - mm);
-    Star(s, n, n + nn, M - mm, M);
-    Star(s, n + nn, N - nn, M - mm, M);
-    Star(s, N - nn, N, M - mm, M);
+    segTree[ptr] = segTree[ptr * 2] + segTree[ptr * 2 + 1];
 }
 
-int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
+ll getVal(int ptr, int l, int r, int i, int j) {
+    if (j < l || r < i) return 0;
+    if (i <= l && r <= j) return segTree[ptr];
 
-    cin >> a;
-    int i, j;
-    for (i = 0; i < a; i++)
-        for (j = 0; j < a; j++)
-            arr[i][j] = '*';
-    Star(arr, 0, a, 0, a);
-    for (i = 0; i < a; i++) {
-        for (j = 0; j < a; j++)
-            cout << arr[i][j];
-        cout << '\n';
+    return getVal(ptr * 2, l, (l + r) / 2, i, j)
+           + getVal(ptr * 2 + 1, (l + r) / 2 + 1, r, i, j);
+}
+
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+#ifndef ONLINE_JUDGE
+    freopen("../input.txt", "r", stdin);
+    freopen("../output.txt", "w", stdout);
+#endif
+
+    cin >> n;
+    ll last = 0;
+    for (int i = 1; i <= n; i++) {
+        ll a;
+        cin >> a;
+        update(1, 1, n, i, a - last);
+        last = a;
     }
+
+    int m;
+    cin >> m;
+    while (m--) {
+        int q;
+        cin >> q;
+        if (q == 1) {
+            ll i, j, k;
+            cin >> i >> j >> k;
+            update(1, 1, n, i, k);
+            update(1, 1, n, j + 1, -k);
+        } else {
+            ll x;
+            cin >> x;
+            cout << getVal(1, 1, n, 1, x) << '\n';
+        }
+    }
+
     return 0;
 }
