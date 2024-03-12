@@ -19,7 +19,7 @@ struct node {
 class link_list {
     node *tail;
     node *head;
-
+    int size = 0;
 public:
     link_list() {
         tail = NULL;
@@ -37,6 +37,7 @@ public:
             temp->next = head;
             head = temp;
         }
+        size++;
     }
 
     void push_back(string name, int id, string major) {
@@ -53,18 +54,22 @@ public:
             tail = temp;
             tail->next = NULL;
         }
+        size++;
     }
 
-    void pop(){
+    void pop() {
         node *temp = head->next;
         delete head;
         head = temp;
+        size--;
     }
 
-    void insert(int idx){
+    void insert(string name, int id, string major, int idx) {
+        if (idx < size){
 
+        }else{
 
-
+        }
     }
 
     void printall() {
@@ -82,11 +87,16 @@ int main() {
     cin.tie(NULL);
     cout.tie(NULL);
 
+#ifndef ONLINE_JUDGE
+    freopen("../input.txt", "r", stdin);
+    freopen("../output.txt", "w", stdout);
+#endif
+
     link_list a;
     string name;
     int id;
     string major;
-    while (cin >> name >> id >> major ){
+    while (cin >> name >> id >> major) {
         a.push_back(name, id, major);
     }
 

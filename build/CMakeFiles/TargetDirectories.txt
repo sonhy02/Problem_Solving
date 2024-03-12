@@ -1,0 +1,3 @@
+/Users/sonhoyeong/Documents/code/c++/ps/build/CMakeFiles/out.dir
+/Users/sonhoyeong/Documents/code/c++/ps/build/CMakeFiles/edit_cache.dir
+/Users/sonhoyeong/Documents/code/c++/ps/build/CMakeFiles/rebuild_cache.dir
