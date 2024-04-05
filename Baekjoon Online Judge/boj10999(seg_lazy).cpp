@@ -55,6 +55,7 @@ ll getVal(int ptr, int l, int r, int i, int j) {
 }
 
 
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);

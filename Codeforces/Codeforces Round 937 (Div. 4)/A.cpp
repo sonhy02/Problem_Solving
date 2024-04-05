@@ -26,6 +26,18 @@ int main() {
     int t;
     cin >> t;
     while (t--) {
+        int a, b, c;
+        cin >> a >> b >> c;
+        if (a < b) {
+            if (b < c) {
+                cout << "STAIR\n";
+                continue;
+            } else if (b > c) {
+                cout << "PEAK\n";
+                continue;
+            }
+        }
+        cout << "NONE\n";
 
 
     }

@@ -26,8 +26,20 @@ int main() {
     int t;
     cin >> t;
     while (t--) {
-
-
+        string s;
+        cin >> s;
+        int temp = (s[0] - '0') * 10 + (s[1] - '0');
+        if (temp == 0 || temp ==24) {
+            cout << 12 << s[2] << s[3] << s[4] << " AM\n";
+        } else if (temp == 12) {
+            cout << s << " PM\n";
+        } else if (temp > 12 && temp < 22) {
+            cout << "0" << temp - 12 << s[2] << s[3] << s[4] << " PM\n";
+        } else if (temp >= 22) {
+            cout << temp - 12 << s[2] << s[3] << s[4] << " PM\n";
+        } else {
+            cout << s << " AM\n";
+        }
     }
 
     return 0;

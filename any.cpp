@@ -1,92 +1,123 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
 using namespace std;
-using ll = long long;
-const int INF = 0x3f3f3f3f;
-using pii = pair<int, int>;
-using pli = pair<ll, int>;
-using pll = pair<ll, ll>;
-using vi = vector<int>;
-using vll = vector<ll>;
-using vpii = vector<pii>;
 
-
-ll segTree[4000004];
-ll lazy[4000004];
-
-void setLazy(int ptr, int l, int r) {
-    ll val = lazy[ptr];
-    lazy[ptr] = 0;
-    segTree[ptr] += (r - l + 1) * val;
-
-    if (l != r) {
-        lazy[ptr * 2] += val;
-        lazy[ptr * 2 + 1] += val;
+class arrayVector {
+public:
+    arrayVector() {
+        capa = 1;
+        arr = new int[1];
+        n = 0;
     }
 
-}
+    bool empty() {
+        return (n == 0);
+    }
 
-void update(int ptr, int l, int r, int i, int j, ll val) {
-    if (lazy[ptr]) setLazy(ptr, l, r);
+    int size() {
+        return n;
+    }
 
-    if (j < l || r < i) return;
-    if (i <= l && r <= j) {
-        segTree[ptr] += (r - l + 1) * val;
+    int at(int idx) {
+        if (idx < 0 || idx >= n) {
+            return -1;
+        } else return arr[idx];
+    }
 
-        if (l != r) {
-            lazy[ptr * 2] += val;
-            lazy[ptr * 2 + 1] += val;
+    void set(int idx, int d) {
+        if (idx < 0 || idx >= n) {
+            return;
+        } else arr[idx] = d;
+    }
+
+    void erase(int idx) {
+        if (idx < 0 || idx >= n) {
+            return;
+        } else {
+            for (int i = idx + 1; i < n; ++i) {
+                arr[i - 1] = arr[i];
+            }
+            n--;
         }
-        return;
     }
-    update(ptr * 2, l, (l + r) / 2, i, j, val);
-    update(ptr * 2 + 1, (l + r) / 2 + 1, r, i, j, val);
 
-    segTree[ptr] = segTree[ptr * 2] + segTree[ptr * 2 + 1];
-}
+    void insert(int idx, int d) {
+        if (idx < 0 || idx >= n) {
+            return;
+        } else {
+            if (n == capa)
+                reserve(2 * capa);
+            for (int i = n - 1; i >= idx; --i) {
+                arr[i + 1] = arr[i];
+            }
+            arr[idx] = d;
+            n++;
+        }
+    }
 
-ll getVal(int ptr, int l, int r, int i, int j) {
-    if (lazy[ptr]) setLazy(ptr, l, r);
-    if (j < l || r < i) return 0;
-    if (i <= l && r <= j) return segTree[ptr];
+private:
+    int capa;
+    int n;
+    int *arr;
 
-    return getVal(ptr * 2, l, (l + r) / 2, i, j)
-           + getVal(ptr * 2 + 1, (l + r) / 2 + 1, r, i, j);
-}
+    void reserve(int size) {
+        if (size <= capa) return;
+        else {
+            int *temparr = new int[size];
+            for (int i = 0; i < n; ++i) {
+                temparr[i] = arr[i];
+            }
+            if (arr != NULL)
+                delete[] arr;
+            arr = temparr;
+            capa = size;
+        }
+    }
+};
+
+struct node {
+    int data;
+    node *past;
+    node *next;
+};
+
+class nodeList {
+
+    nodeList() {
+        head = new node();
+        tail = new node();
+        head->next = tail;
+        tail->past = head;
+        head->past = tail->next = NULL;
+        n = 0;
+    }
+
+    bool empty() {
+        return (n == 0);
+    }
+
+    int size() {
+        return n;
+    }
+
+    node *begin() {
+        return head->next;
+    }
+
+    node *end() {
+        return tail;
+    }
+
+
+
+private:
+    node *head;
+    node *tail;
+    int n;
+};
 
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-
-#ifndef ONLINE_JUDGE
-    freopen("../input.txt", "r", stdin);
-    freopen("../output.txt", "w", stdout);
-#endif
-    int a, b, c;
-    cin >> a >> b >> c;
-    for (int i = 1; i <= a; i++) {
-        ll x;
-        cin >> x;
-        update(1, 1, a, i, i, x);
-    }
-
-    b += c;
-    while (b--) {
-        int q;
-        cin >> q;
-        if (q == 1) {
-            ll i, j, k;
-            cin >> i >> j >> k;
-            update(1, 1, a, i, j, k);
-
-        } else {
-            ll x, y;
-            cin >> x >> y;
-            cout << getVal(1, 1, a, x, y) << '\n';
-        }
-    }
 
     return 0;
 }

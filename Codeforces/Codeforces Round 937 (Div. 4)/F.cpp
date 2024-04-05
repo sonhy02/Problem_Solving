@@ -23,11 +23,16 @@ int main() {
     freopen("../input.txt", "r", stdin);
     freopen("../output.txt", "w", stdout);
 #endif
-    int t;
-    cin >> t;
-    while (t--) {
+    for (int count=0; count  < 20; ++count)
+    {
+        // 숫자가 4로 나눌 수 있는 경우 이 반복을 건너뛴다.
+        if ((count % 4) == 0)
+            continue; // 루프 몸체 끝으로 점프한다.
 
+        // 숫자가 4로 나눌 수 없는 경우 계속된다.
+        std::cout << count << std::endl;
 
+        // continue 문은 여기로 이동시킨다.
     }
 
     return 0;
