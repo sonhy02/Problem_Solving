@@ -1,6 +1,50 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+using ll = long long;
+const int INF = 0x3f3f3f3f;
+using pii = pair<int, int>;
+using pli = pair<ll, int>;
+using pll = pair<ll, ll>;
+using vi = vector<int>;
+using vll = vector<ll>;
+using vpii = vector<pii>;
+
+
+class heap {
+public:
+    heap() {
+        v.push_back(0);
+    }
+
+    void insert(int a) {
+        v.push_back(a);
+        size++;
+        int temp = size;
+        while (temp != 1) {
+            if (v[temp / 2] > v[temp]) swap(v[temp / 2], v[temp]);
+            temp /= 2;
+        }
+    }
+
+    int pop() {
+        int rst = v[1];
+        int temp = v[size];
+        v.erase(v.end());
+        size--;
+        v[1] = temp;
+        temp = 1;
+        while (temp <= v.size()) {
+            if (v[temp] < v[temp * 2] && v[temp] < v[temp * 2 + 1]) break;
+        }
+
+        return rst;
+    }
+
+
+    int size = 0;
+    vi v;
+};
 
 
 int main() {
@@ -11,27 +55,7 @@ int main() {
     freopen("../input.txt", "r", stdin);
     freopen("../output.txt", "w", stdout);
 #endif
-    int t;
-    cin >> t;
-    while (t--) {
-        string str;
-        cin >> str;
 
-        int n = str.length();
-        set<string> unique_strings;
-
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                string new_str = str;
-                new_str.erase(i, 1);
-                new_str.erase(j - 1, 1);
-
-                unique_strings.insert(new_str);
-            }
-        }
-
-        cout << unique_strings.size() << "\n";
-    }
 
     return 0;
 }

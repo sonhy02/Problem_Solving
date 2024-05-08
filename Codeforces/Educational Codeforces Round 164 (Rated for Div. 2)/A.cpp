@@ -11,7 +11,6 @@ using vi = vector<int>;
 using vll = vector<ll>;
 using vpii = vector<pii>;
 
-
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
@@ -23,28 +22,24 @@ int main() {
     int t;
     cin >> t;
     while (t--) {
-        int n;
-        cin >> n;
-        vll a(n);
-        vll b(n);
-        for (auto &i: a) {
-            cin >> i;
-        }
-        for (auto &i: b) {
-            cin >> i;
-        }
-        int ans = 0;
-        int l = 0, r = 0;
-        while (r != n - 1) {
-            if (a[l] > b[r]) {
-                r++;
-                ans++;
-            } else {
-                l++;
-                r++;
+        string s1, s2;
+        cin >> s1 >> s2;
+        for (int i = 0; i < s1.size() / 2; ++i) {
+            if (s1[i] - '0' < s2[i] - '0') {
+                char temp = s1[i];
+                s1[i] = s2[i];
+                s2[i] = temp;
             }
         }
-        cout << ans << "\n";
+        for (int i = s1.size() / 2; i < s1.size(); ++i) {
+            if (s1[i] - '0' > s2[i] - '0') {
+                char temp = s1[i];
+                s1[i] = s2[i];
+                s2[i] = temp;
+            }
+        }
+        cout << s1 << "\n" << s2 << "\n";
+
     }
 
     return 0;

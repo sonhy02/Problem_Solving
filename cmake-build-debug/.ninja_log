@@ -1,16 +1,10 @@
 # ninja log v5
-1	1382	1709790246901653385	CMakeFiles/out.dir/linked_list.cpp.o	a9550c78d28785a3
-0	1323	1711042941259364169	CMakeFiles/out.dir/oop2.cpp.o	3dbdfa199c45b355
 416	446	1681870596002027928	CLion	fa4b2b32df86fe5a
-0	1323	1711637204317083563	CMakeFiles/out.dir/Codeforces/Codeforces_Round_937_(Div._4)/A.cpp.o	f34b93b8ad6def52
-0	1196	1711639049400796142	CMakeFiles/out.dir/Codeforces/Codeforces_Round_937_(Div._4)/C.cpp.o	7807c9a5f153a400
-0	711	1712242270195398101	CMakeFiles/out.dir/any.cpp.o	d8cc07d7380538a7
-0	525	1711535952393223426	CMakeFiles/out.dir/Oop1/12234135_sonhoyoung(lab6).cpp.o	94ac3cdf01d7f87
-8	939	1711623546370460034	CMakeFiles/out.dir/codeforce_.cpp.o	459a53bdf1e1760e
-712	940	1712242270425537896	out	89691dc01a34729f
-0	902	1711637942010098320	CMakeFiles/out.dir/Codeforces/Codeforces_Round_937_(Div._4)/B.cpp.o	8e96bd6a77f70bfe
-0	631	1712115435162962323	CMakeFiles/out.dir/Codeforces/Codeforces_Round_937_(Div._4)/F.cpp.o	4f52f00b93d98967
-0	914	1711642347905895289	CMakeFiles/out.dir/Codeforces/Codeforces_Round_937_(Div._4)/E.cpp.o	89501bc66dd706cf
-0	95	1712285240844455852	build.ninja	5f0ae78f1f5cf399
-8	942	1711619931793399355	CMakeFiles/out.dir/boj_.cpp.o	99087eb2cfe99c03
-0	1489	1711641306140238531	CMakeFiles/out.dir/Codeforces/Codeforces_Round_937_(Div._4)/D.cpp.o	2586b57aa984c3e
+6	962	1714102111556271768	CMakeFiles/out.dir/oop2.cpp.o	23e2b539ebe6862b
+1486	1545	1714811164044246458	out	7358f8413baa2887
+0	794	1714488070172668152	CMakeFiles/out.dir/codeforce_.cpp.o	7b56abffecc050f7
+0	95	1715058653019426817	build.ninja	5f0ae78f1f5cf399
+8	1486	1714811163977169418	CMakeFiles/out.dir/boj_.cpp.o	763d9b8f850a2fd0
+9	992	1714631835013600486	CMakeFiles/out.dir/anything.cpp.o	b03f65af4e4e304f
+1	1009	1715058751485565425	CMakeFiles/out.dir/boj_.cpp.o	763d9b8f850a2fd0
+1012	3299	1715058753781765990	out	7358f8413baa2887

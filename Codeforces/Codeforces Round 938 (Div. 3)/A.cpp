@@ -11,8 +11,6 @@ using vi = vector<int>;
 using vll = vector<ll>;
 using vpii = vector<pii>;
 
-vector<bool> prime(10000000);
-
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
@@ -21,18 +19,22 @@ int main() {
     freopen("../input.txt", "r", stdin);
     freopen("../output.txt", "w", stdout);
 #endif
-    int n;
-    cin >> n;
-    vi v[3];
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < n; ++j) {
-            int a;
-            cin >> a;
-            v[i].push_back(a);
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, a, b;
+        cin >> n >> a >> b;
+        int ans = 0;
+        if (2 * a > b) {
+            ans += n / 2 * b;
+            n -= n / 2 * 2;
+            ans += n * a;
+            cout << ans << "\n";
+        } else {
+            cout << a * n << "\n";
         }
+
     }
-
-
 
     return 0;
 }
