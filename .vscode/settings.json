@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "iostream": "cpp"
+    },
+    "accessibility.verbosity.inlineChat": false,
+    "inlineChat.acceptedOrDiscardBeforeSave": false,
+    "inlineChat.holdToSpeech": false,
+    "inlineChat.mode": "preview"
+}
