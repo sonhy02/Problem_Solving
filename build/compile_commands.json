@@ -1,8 +1,8 @@
 [
 {
   "directory": "/Users/sonhoyeong/Documents/code/c++/ps/build",
-  "command": "/usr/bin/clang++ -I/Users/sonhoyeong/Documents/code/c++/ps/includes -g -std=gnu++2b -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -o CMakeFiles/out.dir/codeforce_.cpp.o -c /Users/sonhoyeong/Documents/code/c++/ps/codeforce_.cpp",
-  "file": "/Users/sonhoyeong/Documents/code/c++/ps/codeforce_.cpp",
-  "output": "CMakeFiles/out.dir/codeforce_.cpp.o"
+  "command": "/usr/bin/clang++ -I/Users/sonhoyeong/Documents/code/c++/ps/includes -g -std=gnu++2b -arch arm64 -mmacosx-version-min=14.3 -o CMakeFiles/out.dir/boj_.cpp.o -c /Users/sonhoyeong/Documents/code/c++/ps/boj_.cpp",
+  "file": "/Users/sonhoyeong/Documents/code/c++/ps/boj_.cpp",
+  "output": "CMakeFiles/out.dir/boj_.cpp.o"
 }
 ]

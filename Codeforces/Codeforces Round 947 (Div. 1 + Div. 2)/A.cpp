@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+
 using ll = long long;
 const int INF = 0x3f3f3f3f;
 using pii = pair<int, int>;
@@ -15,7 +16,6 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-
 #ifndef ONLINE_JUDGE
     freopen("../input.txt", "r", stdin);
     freopen("../output.txt", "w", stdout);
@@ -29,9 +29,21 @@ int main() {
         for (auto &i: v) {
             cin >> i;
         }
-//        sort(v.begin(), v.end());
-
-
+        bool check = false;
+        bool flag = false;
+        int start = v[0];
+        int temp;
+        for (int i = 0; i < v.size() - 1; ++i) {
+            if (v[i] > v[i + 1] && !check) {
+                check = true;
+            } else if (v[i] > v[i + 1] && check) {
+                flag = true;
+                break;
+            }
+        }
+        if (check) if (v[v.size() - 1] > v[0]) flag = true;
+        if (flag) cout << "NO\n";
+        else cout << "YES\n";
     }
 
 

@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-
-
 vector<pair<int, pair<int, int>>> v;
 int parent[10001];
 
@@ -46,8 +44,6 @@ int main() {
         }
     }
     cout << result;
-
-
     return 0;
 }
 

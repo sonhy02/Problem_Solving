@@ -49,12 +49,12 @@ cmake_ninja_workdir = /Users/sonhoyeong/Documents/code/c++/ps/cmake-build-debug/
 
 build cmake_object_order_depends_target_out: phony || CMakeFiles/out.dir
 
-build CMakeFiles/out.dir/boj_.cpp.o: CXX_COMPILER__out_unscanned_Debug /Users/sonhoyeong/Documents/code/c++/ps/boj_.cpp || cmake_object_order_depends_target_out
-  DEP_FILE = CMakeFiles/out.dir/boj_.cpp.o.d
-  FLAGS = -g -std=gnu++2b -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+build CMakeFiles/out.dir/Codeforces/Codeforces_Round_947_(Div._1_+_Div._2)/C.cpp.o: CXX_COMPILER__out_unscanned_Debug /Users/sonhoyeong/Documents/code/c++/ps/Codeforces/Codeforces$ Round$ 947$ (Div.$ 1$ +$ Div.$ 2)/C.cpp || cmake_object_order_depends_target_out
+  DEP_FILE = "CMakeFiles/out.dir/Codeforces/Codeforces_Round_947_(Div._1_+_Div._2)/C.cpp.o.d"
+  FLAGS = -g -std=gnu++2b -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics
   INCLUDES = -I/Users/sonhoyeong/Documents/code/c++/ps/includes
   OBJECT_DIR = CMakeFiles/out.dir
-  OBJECT_FILE_DIR = CMakeFiles/out.dir
+  OBJECT_FILE_DIR = "CMakeFiles/out.dir/Codeforces/Codeforces_Round_947_(Div._1_+_Div._2)"
 
 
 # =============================================================================
@@ -64,8 +64,8 @@ build CMakeFiles/out.dir/boj_.cpp.o: CXX_COMPILER__out_unscanned_Debug /Users/so
 #############################################
 # Link the executable out
 
-build out: CXX_EXECUTABLE_LINKER__out_Debug CMakeFiles/out.dir/boj_.cpp.o
-  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk
+build out: CXX_EXECUTABLE_LINKER__out_Debug CMakeFiles/out.dir/Codeforces/Codeforces_Round_947_(Div._1_+_Div._2)/C.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4
   OBJECT_DIR = CMakeFiles/out.dir
   POST_BUILD = :
   PRE_LINK = :
