@@ -18,10 +18,9 @@ ll gcd(ll a, ll b) {
 
 ll lcm(ll a, ll b) { return a * b / gcd(a, b); }
 
-vi graph[100001];
-vi rgraph[100001];
-bool check[100001];
-int indegree[100001];
+vi graph[10001];
+vi rgraph[10001];
+bool check[10001];
 stack<int> st;
 vector<vi> scc;
 
@@ -50,37 +49,35 @@ int main() {
     freopen("../input.txt", "r", stdin);
     freopen("../output.txt", "w", stdout);
 #endif
-    int t;
-    cin >> t;
-    while (t--) {
-        int v, e;
-        cin >> v >> e;
-        for (int i = 0; i < e; ++i) {
-            int a, b;
-            cin >> a >> b;
-            graph[a].push_back(b);
-            indegree[a]++;
-            rgraph[b].push_back(a);
-        }
-        for (int i = 1; i <= v; ++i) {
-            if (!check[i])dfs(i);
-        }
-        memset(check, 0, sizeof(check));
-        while (!st.empty()) {
-            int a = st.top();
-            st.pop();
-            if (!check[a]) {
-                scc.emplace_back();
-                dfs_(a);
-            }
-        }
-        int ans = 0;
-        for (auto i: scc) {
-            for (auto j: i) {
-                if (indegree[j] == 0)ans++;
-            }
-        }
-        cout << ans << "\n";
+    int v, e;
+    cin >> v >> e;
+    for (int i = 0; i < e; ++i) {
+        int a, b;
+        cin >> a >> b;
+        graph[a].push_back(b);
+        rgraph[b].push_back(a);
     }
+    for (int i = 1; i <= v; ++i) {
+        if (!check[i])dfs(i);
+    }
+    memset(check, 0, sizeof(check));
+    while (!st.empty()) {
+        int a = st.top();
+        st.pop();
+        if (!check[a]) {
+            scc.emplace_back();
+            dfs_(a);
+            sort(scc.back().begin(), scc.back().end());
+        }
+    }
+    sort(scc.begin(), scc.end());
+    cout << scc.size() << "\n";
+    for (auto i: scc) {
+        for (auto j: i) {
+            cout << j << " ";
+        }
+        cout << "-1\n";
+    }
+
     return 0;
 }

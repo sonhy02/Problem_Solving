@@ -21,44 +21,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d9858473-07ac-448f-a87f-0595ac338c8a" name="Changes" comment="results">
-      <change afterPath="$PROJECT_DIR$/Codeforces/Codeforces Round 947 (Div. 1 + Div. 2)/A.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codeforces/Codeforces Round 947 (Div. 1 + Div. 2)/B.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codeforces/Codeforces Round 947 (Div. 1 + Div. 2)/C.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codeforces/Codeforces Round 947 (Div. 1 + Div. 2)/D.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baekjoon Online Judge/boj2150(SCC).cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Codeforces/Codeforces Round 948 (Div. 2)/A.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Codeforces/Codeforces Round 948 (Div. 2)/B.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Codeforces/Codeforces Round 948 (Div. 2)/C.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Codeforces/Codeforces Round 948 (Div. 2)/D.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baekjoon Online Judge/boj1197(mst,kruskal).cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Baekjoon Online Judge/boj1197(mst,kruskal).cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baekjoon Online Judge/boj1753(dijkstra).cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Baekjoon Online Judge/boj1753(dijkstra).cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/any.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/any.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/anything.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/anything.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/baekjoon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/baekjoon.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boj_.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/boj_.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/cache-v2-988292584c07101dc9fc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/cmakeFiles-v1-98f7fa6ebdd10aea1f16.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/codemodel-v2-b89c72365a2de5ef2c48.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/index-2024-03-16T15-50-29-0696.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/target-out-Debug-449289b5088dce87f32f.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/toolchains-v1-1f3a9ac4fcac272eae6b.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/rules.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/build/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/compile_commands.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/compile_commands.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cache-v2-b0db47edeabee913d8ce.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-024fae9d4e7b4281af37.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-out-Debug-475144b111fff2b8e9e7.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-3bfd73f62fea50a422bf.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CMakeCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CMakeCCompiler.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CMakeCXXCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CMakeCXXCompiler.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.28.1/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/out.dir/anything.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/out.dir/boj_.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/out.dir/boj_.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/out.dir/codeforce_.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/out.dir/oop2.cpp.o" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/out" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/out" afterDir="false" />
@@ -133,7 +107,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editing.templates",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "structure.view.defaults.are.configured": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -150,9 +124,9 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="out" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ps" TARGET_NAME="out" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ps" RUN_TARGET_NAME="out">
@@ -554,7 +528,8 @@
       <workItem from="1716005321778" duration="88000" />
       <workItem from="1716199606610" duration="11766000" />
       <workItem from="1716285907910" duration="6764000" />
-      <workItem from="1716423299694" duration="41299000" />
+      <workItem from="1716423299694" duration="70760000" />
+      <workItem from="1717052081648" duration="17934000" />
     </task>
     <task id="LOCAL-00001" summary="Changes">
       <created>1684202014425</created>
@@ -851,7 +826,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715596641668</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="results">
+      <option name="closed" value="true" />
+      <created>1716714533735</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1716714533735</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -889,6 +872,12 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="CMakeRunConfiguration">
+        <watch expression="scc" language="ObjectiveC" />
+        <watch expression="indegree" language="ObjectiveC" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

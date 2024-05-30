@@ -1,43 +1,88 @@
-#include <bits/stdc++.h>
+#include <iomanip>
+#include <iostream>
 using namespace std;
 
-typedef long long ll;
-typedef pair<int, int> pii;
-typedef pair<ll, ll> pll;
+const int pasTriMax = 61;
 
-ll gcd(ll a, ll b) { for (; b; a %= b, swap(a, b)); return a; }
+uint64_t pasTri[pasTriMax + 1];
 
-const int N = 4000005;
-string s = "$";
-int A[N];
+void pascalTriangle(unsigned long n)
+// Calculate the n'th line 0.. middle
+{
+    unsigned long j, k;
+
+    pasTri[0] = 1;
+    j = 1;
+    while (j <= n)
+    {
+        j++;
+        k = j / 2;
+        pasTri[k] = pasTri[k - 1];
+        for ( ;k >= 1; k--)
+            pasTri[k] += pasTri[k - 1];
+    }
+}
+
+bool isPrime(unsigned long n)
+{
+    if (n > pasTriMax)
+    {
+        cout << n << " is out of range" << endl;
+        exit(1);
+    }
+
+    pascalTriangle(n);
+    bool res = true;
+    int i = n / 2;
+    while (res && (i > 1))
+    {
+        res = res && (pasTri[i] % n == 0);
+        i--;
+    }
+    return res;
+}
+
+void expandPoly(unsigned long n)
+{
+    const char vz[] = {'+', '-'};
+
+    if (n > pasTriMax)
+    {
+        cout << n << " is out of range" << endl;
+        exit(1);
+    }
+
+    switch (n)
+    {
+        case 0:
+            cout << "(x-1)^0 = 1" << endl;
+            break;
+        case 1:
+            cout << "(x-1)^1 = x-1" << endl;
+            break;
+        default:
+            pascalTriangle(n);
+            cout << "(x-1)^" << n << " = ";
+            cout << "x^" << n;
+            bool bVz = true;
+            int nDiv2 = n / 2;
+            for (unsigned long j = n - 1; j > nDiv2; j--, bVz = !bVz)
+                cout << vz[bVz] << pasTri[n - j] << "*x^" << j;
+            for (unsigned long j = nDiv2; j > 1; j--, bVz = !bVz)
+                cout << vz[bVz] << pasTri[j] << "*x^" << j;
+            cout << vz[bVz] << pasTri[1] << "*x";
+            bVz = !bVz;
+            cout << vz[bVz] << pasTri[0] << endl;
+            break;
+    }
+}
 
 int main()
 {
-    ios::sync_with_stdio(0);
-    cin.tie(0), cout.tie(0);
-
-    string tmp; cin >> tmp;
-    for (char c : tmp)
-    {
-        s.push_back(c);
-        s.push_back('$');
-    }
-
-    int m = -1, k = -1;
-
-    ll ans = 0;
-    for (int i = 0; i < s.size(); i++)
-    {
-        if (i <= m) A[i] = min(m - i, A[2 * k - i]);
-
-        while (0 <= i - A[i] - 1 && i + A[i] + 1 < s.size()
-            && s[i - A[i] - 1] == s[i + A[i] + 1])
-        {
-            if (i + ++A[i] > m) m = i + A[i], k = i;
-        }
-
-        ans += (A[i] + 1) / 2;
-    }
-
-    cout << ans;
+    for (unsigned long n = 0; n <= 9; n++)
+        expandPoly(n);
+    for (unsigned long n = 2; n <= pasTriMax; n++)
+        if (isPrime(n))
+            cout << setw(3) << n;
+    cout << endl;
 }
